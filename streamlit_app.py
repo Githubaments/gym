@@ -13,7 +13,7 @@ conn = connect(credentials=credentials)
 
 
 # Open the Google Sheet by name
-sheet = conn.open('MySheetName').sheet1
+sheet = conn.open('Gym').sheet1
 
 # Read the data from the sheet
 data = sheet.get_all_records()
