@@ -1,6 +1,6 @@
 import streamlit as st
+import gspread
 from google.oauth2 import service_account
-from gsheetsdb import connect
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
@@ -9,11 +9,10 @@ credentials = service_account.Credentials.from_service_account_info(
         "https://www.googleapis.com/auth/spreadsheets",
     ],
 )
-conn = connect(credentials=credentials)
-
+gc = gspread.authorize(credentials)
 
 # Open the Google Sheet by name
-sheet = conn.open('Gym').sheet1
+sheet = gc.open('Gym').sheet1
 
 # Read the data from the sheet
 data = sheet.get_all_records()
