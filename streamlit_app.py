@@ -12,7 +12,7 @@ credentials = service_account.Credentials.from_service_account_info(
 gc = gspread.authorize(credentials)
 
 # Open the Google Sheet by name
-sheet = gc.open('Gym').sheet1
+sheet = gc.open('Gym Log').sheet1
 
 # Read the data from the sheet
 data = sheet.get_all_records()
