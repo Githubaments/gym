@@ -3,3 +3,5 @@ streamlit
 plotly_express
 pandas
 numpy
+google.oauth2
+gsheetsdb
