@@ -129,10 +129,10 @@ new_sheet = gc.create("My New Sheet")
 # Get the URL of the new sheet
 new_sheet_url = new_sheet.url
 
+
 new_sheet_name = f"{selected_workout} ({latest_date})"
-
-new_sheet = sheet.add_worksheet(title='New Sheet', rows=100, cols=20)
-
+worksheet = sh.add_worksheet(title=new_sheet_name, rows=len(new_df)+1, cols=len(new_df.columns))
+worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
 sh = gc.create(new_sheet_name)
 
 with st.form(key='my_form'):
