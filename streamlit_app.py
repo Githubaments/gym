@@ -24,6 +24,12 @@ workouts = list(set([d['Workout'] for d in data]))
 # Create Dataframe
 df = pd.DataFrame(data)
 
+# Convert Dates
+df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+
+# change the format of the dates to dd/mm/yy
+df['Date'] = df['Date'].dt.strftime('%d/%m/%y')
+
 # Allow the user to choose a workout to filter by
 selected_workout = st.sidebar.selectbox('Select a workout', df['Workout'].unique().tolist())
 
