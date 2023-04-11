@@ -45,3 +45,31 @@ latest_date = df['Date'].max()
 df = df[df['Date'] == latest_date]
 
 st.write(df)
+
+
+
+# Create a list of exercises for the selected workout
+exercises = list(set([d['Exercise'] for d in data if d['Workout'] == selected_workout]))
+
+# Create a dictionary to store the previous values for each exercise
+previous_values = {e: {'weight': None, 'set1': None, 'set2': None, 'set3': None} for e in exercises}
+
+# Create a list to store the user input values
+input_values = []
+
+# Iterate through the exercises and generate input boxes for each set
+for exercise in exercises:
+    st.write(exercise)
+    weight = st.number_input('Weight', value=previous_values[exercise]['weight'])
+    set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'])
+    set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'])
+    set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'])
+    
+    # Store the user input values for each set in a dictionary
+    input_values.append({'Exercise': exercise, 'Weight': weight, 'Set 1': set1, 'Set 2': set2, 'Set 3': set3})
+    
+    # Update the previous values dictionary with the current values
+    previous_values[exercise]['weight'] = weight
+    previous_values[exercise]['set1'] = set1
+    previous_values[exercise]['set2'] = set2
+    previous_values[exercise]['set3'] = set3
