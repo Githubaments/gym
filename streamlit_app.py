@@ -48,52 +48,31 @@ st.write(df)
 
 
 
-# Create a list of exercises for the selected workout
-exercises = list(set([d['Exercise'] for d in data if d['Workout'] == selected_workout]))
-
-# Create a dictionary to store the previous values for each exercise
-previous_values = {e: {'weight': None, 'set1': None, 'set2': None, 'set3': None} for e in exercises}
-
-# Create a list to store the user input values
-input_values = []
-
+# create a dict with previous values for each exercise
 previous_values = {}
-for _, row in df.iterrows():
-    exercise = row['Exercise']
-    if exercise not in previous_values:
-        previous_values[exercise] = {'weight': 0, 'set1': 0, 'set2': 0, 'set3': 0}
-    previous_values[exercise]['weight'] = row['Weight']
-    previous_values[exercise]['set1'] = row['Set 1']
-    previous_values[exercise]['set2'] = row['Set 2']
-    previous_values[exercise]['set3'] = row['Set 3']
+for exercise in df['Exercise'].unique():
+    previous_values[exercise] = {
+        'weight': df[df['Exercise'] == exercise]['Weight'].values[0],
+        'set1': df[df['Exercise'] == exercise]['Set 1'].values[0],
+        'set2': df[df['Exercise'] == exercise]['Set 2'].values[0],
+        'set3': df[df['Exercise'] == exercise]['Set 3'].values[0],
+    }
 
-# Allow the user to input new values for each exercise
-for exercise in previous_values:
-    st.write(f'## {exercise}')
-    weight = previous_values[exercise]['weight']
-    if isinstance(weight, (int, float)):
-        weight = st.number_input('Weight', value=weight)
-    else:
-        weight = st.number_input('Weight', value=0)
-        
-    set1 = previous_values[exercise]['set1']
-    if isinstance(set1, (int, float)):
-        set1 = st.number_input('Set 1', value=set1)
-    else:
-        set1 = st.number_input('Set 1', value=0)
-        
-    set2 = previous_values[exercise]['set2']
-    if isinstance(set2, (int, float)):
-        set2 = st.number_input('Set 2', value=set2)
-    else:
-        set2 = st.number_input('Set 2', value=0)
-        
-    set3 = previous_values[exercise]['set3']
-    if isinstance(set3, (int, float)):
-        set3 = st.number_input('Set 3', value=set3)
-    else:
-        set3 = st.number_input('Set 3', value=0)
+# display inputs for each exercise
+for exercise in df['Exercise'].unique():
+    st.write(exercise)
+    weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
+    set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
+    set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
+    set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
+    previous_values[exercise] = {
+        'weight': float(weight) if isinstance(weight, (int, float)) else 0,
+        'set1': float(set1) if isinstance(set1, (int, float)) else 0,
+        'set2': float(set2) if isinstance(set2, (int, float)) else 0,
+        'set3': float(set3) if isinstance(set3, (int, float)) else 0,
+    }
 
-    # Do something with the new values (e.g. update the Google Sheet)
-    st.write(f'Weight: {weight}, Set 1: {set1}, Set 2: {set2}, Set 3: {set3}')
-
+# save the inputs to the sheet
+for exercise in previous_values.keys():
+    row = df[df['Exercise'] == exercise].iloc[0]
+    sheet.insert_row([row['Workout'], row['Exercise'], previous_values[exercise]['weight'], previous_values[exercise]['set1'], previous_values[exercise]['set2'], previous_values[exercise]['set3']], index=row.name+2)
