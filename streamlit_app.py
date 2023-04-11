@@ -72,7 +72,7 @@ for exercise in df['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
