@@ -117,6 +117,7 @@ for exercise in df['Exercise'].unique():
 new_df = pd.DataFrame(user_data)
 new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
 new_df['Workout'] = selected_workout
+new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments']]
 
