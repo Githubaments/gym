@@ -95,3 +95,27 @@ for exercise in df['Exercise'].unique():
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
+
+  # create a dictionary to hold the user input values for this exercise
+    user_input = {
+        'Workout': selected_workout,
+        'Date': latest_date,
+        'Exercise': exercise,
+        'Weight': weight,
+        'Set 1': set1_val,
+        'Set 2': set2_val,
+        'Set 3': set3_val
+    }
+    
+    # add the user input dictionary to the list of user data
+    user_data.append(user_input)
+
+# create a new DataFrame with the user input data
+new_df = pd.DataFrame(user_data)
+
+# write the new data to a new sheet in the same Google Spreadsheet
+new_sheet_name = f"{selected_workout} ({latest_date})"
+sh = gc.create(new_sheet_name)
+worksheet = sh.get_worksheet(0)
+worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
+st.write(f"New data written to sheet: {new_sheet_name}")
