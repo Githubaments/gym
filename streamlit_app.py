@@ -124,10 +124,13 @@ new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set
 new_df = st.experimental_data_editor(new_df)
 
 # Create a new sheet
-new_sheet = client.create("My New Sheet")
+new_sheet = gc.create("My New Sheet")
 
 # Get the URL of the new sheet
 new_sheet_url = new_sheet.url
+
+new_sheet_name = f"{selected_workout} ({latest_date})"
+sh = gc.create(new_sheet_name)
 
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
