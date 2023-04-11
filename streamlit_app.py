@@ -64,6 +64,8 @@ for exercise in df['Exercise'].unique():
 
 # display inputs for each exercise
 for exercise in df['Exercise'].unique():
+    st.markdown(f'<div style="text-align: center;">exercise</div>', unsafe_allow_html=True)
+
     # define default values for the input fields
     weight = previous_values[exercise]['weight']
     set1 = previous_values[exercise]['set1']
@@ -71,7 +73,6 @@ for exercise in df['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        st.write(exercise, text_align='center')
         col1, col2 = st.beta_columns(2)
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
@@ -90,7 +91,6 @@ for exercise in df['Exercise'].unique():
             'set2': float(set2) if isinstance(set2, (int, float)) else 0,
             'set3': float(set3) if isinstance(set3, (int, float)) else 0,
         }
-        st.markdown('<div style="text-align: center;">exercise</div>', unsafe_allow_html=True)
 
         weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
