@@ -70,5 +70,3 @@ for exercise in df['Exercise'].unique():
     set2 = st.number_input('Set 2', value=set2, key=f'{exercise}-set2', min_value=0, max_value=100, step=1)
     set3 = st.number_input('Set 3', value=set3, key=f'{exercise}-set3', min_value=0, max_value=100, step=1)
     
-    # Add the exercise details to the dataframe
-    df = df.append({'Date': date.today(), 'Exercise': exercise, 'Weight': weight, 'Set 1': set1, 'Set 2': set2, 'Set 3': set3}, ignore_index=True)
