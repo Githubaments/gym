@@ -9,12 +9,6 @@ credentials = service_account.Credentials.from_service_account_info(
     scopes=[        "https://www.googleapis.com/auth/spreadsheets",        "https://www.googleapis.com/auth/drive",    ],
 )
 
-st.markdown(
-    '<div style="text-align: center;">'
-    'This text will be center-justified.'
-    '</div>',
-    unsafe_allow_html=True
-)
 
 gc = gspread.authorize(credentials)
 
@@ -94,7 +88,7 @@ for exercise in df['Exercise'].unique():
             'set3': int(set3) if isinstance(set3, (int, float)) else 0,
         }
 
-        weight = st.number_input('Weight', value=previous_values[exercise]['weight'], step =1.0,  key=f'{exercise}-weight')
+        weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
