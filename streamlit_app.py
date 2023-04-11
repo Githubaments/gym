@@ -121,7 +121,7 @@ new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments']]
 
-st.experimental_data_editor(new_df)
+new_df = st.experimental_data_editor(new_df)
 
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
