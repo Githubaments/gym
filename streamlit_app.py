@@ -68,7 +68,7 @@ for exercise in df['Exercise'].unique():
         st.write(exercise)
         col1, col2 = st.beta_columns(2)
         for i in range(1, 4):
-            if previous_values[exercise] != "":
+            if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
                 set_val = set_val.split('x') if set_val else ['', '']
                 set_val1 = col1.number_input(f'Weight {i}', value=int(set_val[0]), key=f'{exercise}-set{i}-1')
