@@ -130,6 +130,9 @@ new_sheet = gc.create("My New Sheet")
 new_sheet_url = new_sheet.url
 
 new_sheet_name = f"{selected_workout} ({latest_date})"
+
+new_sheet = sheet.add_worksheet(title='New Sheet', rows=100, cols=20)
+
 sh = gc.create(new_sheet_name)
 
 with st.form(key='my_form'):
