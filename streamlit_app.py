@@ -102,9 +102,9 @@ for exercise in df['Exercise'].unique():
         'Date': latest_date,
         'Exercise': exercise,
         'Weight': weight,
-        'Set 1': set1_val,
-        'Set 2': set2_val,
-        'Set 3': set3_val
+        'Set 1': set1,
+        'Set 2': set2,
+        'Set 3': set3
     }
     
     # add the user input dictionary to the list of user data
