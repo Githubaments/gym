@@ -70,8 +70,8 @@ for exercise in df['Exercise'].unique():
         for i in range(1, 4):
             set_val = previous_values[exercise][f'set{i}']
             set_val = set_val.split('x') if set_val else ['', '']
-            set_val1 = col1.number_input(f'Set {i} (before x)', value=int(set_val[0]), key=f'{exercise}-set{i}-1')
-            set_val2 = col2.number_input(f'Set {i} (after x)', value=int(set_val[1]), key=f'{exercise}-set{i}-2')
+            set_val1 = col1.number_input(f'Weight {i}', value=int(set_val[0]), key=f'{exercise}-set{i}-1')
+            set_val2 = col2.number_input(f'Reps {i}', value=int(set_val[1]), key=f'{exercise}-set{i}-2')
             previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
     else:
         previous_values[exercise] = {
