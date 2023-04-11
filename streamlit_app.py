@@ -116,16 +116,8 @@ for exercise in df['Exercise'].unique():
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
     
-selected_exercise = st.selectbox('Exercise', exercise_list)
 
-if selected_exercise != '':
-    # Create number input for weight
-    weight = st.number_input('Weight:', value=0, step=1)
 
-    # Create number inputs for sets
-    set1 = st.number_input('Set 1:', value=0, step=1)
-    set2 = st.number_input('Set 2:', value=0, step=1)
-    set3 = st.number_input('Set 3:', value=0, step=1)
 
 # create a new DataFrame with the user input data
 new_df = pd.DataFrame(user_data)
@@ -134,6 +126,34 @@ new_df['Workout'] = selected_workout
 new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments']]
+
+
+
+
+selected_exercise = st.selectbox('Exercise', exercise_list)
+
+if selected_exercise != '':
+    # Create an empty dictionary to store the selected values
+    selected_values = {}
+    # Create number input for weight
+    weight = st.number_input('Weight:', value=0, step=1)
+
+    # Create number inputs for sets
+    set1 = st.number_input('Set 1:', value=0, step=1)
+    set2 = st.number_input('Set 2:', value=0, step=1)
+    set3 = st.number_input('Set 3:', value=0, step=1)
+    
+    extra_user_input = {
+        'Date': latest_date,
+        'Workout': selected_workout,
+        'Exercise': exercise,
+        'Weight': weight,
+        'Set 1': set1,
+        'Set 2': set2,
+        'Set 3': set3
+    }
+    new_df = new_df.append(selected_values, ignore_index=True)
+
 
 new_df = st.experimental_data_editor(new_df)
 
