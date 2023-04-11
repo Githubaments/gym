@@ -123,7 +123,8 @@ new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set
 
 st.experimental_data_editor(new_df)
 
-if st.form_submit_button(label="Submit"):
+with st.form(key='my_form'):
+    if st.form_submit_button(label="Submit"):
     new_sheet_name = f"{selected_workout} ({latest_date})"
     sh = gc.create(new_sheet_name)
     worksheet = sh.get_worksheet(0)
