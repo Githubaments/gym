@@ -116,7 +116,8 @@ for exercise in df['Exercise'].unique():
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
     
-    
+selected_exercise = st.selectbox('Exercise', exercise_list)
+
 if selected_exercise != '':
     # Create number input for weight
     weight = st.number_input('Weight:', value=0, step=1)
