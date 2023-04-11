@@ -35,12 +35,14 @@ for exercise in exercises:
     exercise_data = [d for d in workout_data if d['Exercise'] == exercise]
     exercise_data.sort(key=lambda x: x['Date'], reverse=True)
 
-    # Extract the latest weight for the exercise
+    # Extract the latest weight and sets for the exercise
     latest_weight = [exercise_data[0]['Set 1'], exercise_data[0]['Set 2'], exercise_data[0]['Set 3']]
     latest_weights.append(latest_weight)
+    num_sets.append(sum([1 for w in latest_weight if w != '']))
 
-    # Display the exercise and its latest weight
-    st.write(exercise + ': ' + ', '.join(str(w) for w in latest_weight))
+    # Display the exercise and its latest weight and number of sets
+    st.write(exercise + ': ' + ', '.join(str(w) for w in latest_weight) + ' (' + str(num_sets[-1]) + ' sets)')
 
 # Display the data in a Streamlit app
 st.write('Latest weights:', latest_weights)
+st.write('Number of sets:', num_sets)
