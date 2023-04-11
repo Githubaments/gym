@@ -52,18 +52,6 @@ for exercise in df['Exercise'].unique():
     st.write(exercise)
     st.write('-' * len(exercise))
     
-    # Get the previous values for this exercise
-    if exercise in previous_values:
-        weight = float(previous_values[exercise]['weight'])
-        set1 = int(previous_values[exercise]['set1'])
-        set2 = int(previous_values[exercise]['set2'])
-        set3 = int(previous_values[exercise]['set3'])
-    else:
-        weight = 0.0
-        set1 = 0
-        set2 = 0
-        set3 = 0
-    
     # Create number input boxes for weight and sets
     weight = st.number_input('Weight', value=weight, key=f'{exercise}-weight')
     set1 = st.number_input('Set 1', value=set1, key=f'{exercise}-set1', min_value=0, max_value=100, step=1)
