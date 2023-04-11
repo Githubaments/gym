@@ -28,8 +28,8 @@ df = pd.DataFrame(data)
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 
 # change the format of the dates to dd/mm/yy
-df['Date'] = df['Date'].dt.strftime('%d/%m/%y')
 df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
+df['Date'] = df['Date'].dt.date
 
 
 # Allow the user to choose a workout to filter by
