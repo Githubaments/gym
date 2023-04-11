@@ -131,7 +131,7 @@ new_sheet_url = new_sheet.url
 
 
 new_sheet_name = f"{selected_workout} ({latest_date})"
-worksheet = sh.add_worksheet(title=new_sheet_name, rows=len(new_df)+1, cols=len(new_df.columns))
+worksheet = gc.add_worksheet(title=new_sheet_name, rows=len(new_df)+1, cols=len(new_df.columns))
 worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
 sh = gc.create(new_sheet_name)
 
