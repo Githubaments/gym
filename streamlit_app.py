@@ -65,7 +65,7 @@ for exercise in df['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        st.write(exercise)
+        st.write(exercise, text_align='center')
         col1, col2 = st.beta_columns(2)
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
@@ -84,7 +84,7 @@ for exercise in df['Exercise'].unique():
             'set2': float(set2) if isinstance(set2, (int, float)) else 0,
             'set3': float(set3) if isinstance(set3, (int, float)) else 0,
         }
-        st.write(exercise)
+        st.write(exercise, text_align='center')
         weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
