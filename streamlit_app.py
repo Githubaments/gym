@@ -39,6 +39,8 @@ for exercise in exercises:
     latest_weight = [exercise_data[0]['Set 1'], exercise_data[0]['Set 2'], exercise_data[0]['Set 3']]
     latest_weights.append(latest_weight)
 
+    # Display the exercise and its latest weight
+    st.write(exercise + ': ' + ', '.join(str(w) for w in latest_weight))
+
 # Display the data in a Streamlit app
-st.write('Exercises:', exercises)
 st.write('Latest weights:', latest_weights)
