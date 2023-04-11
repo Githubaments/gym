@@ -121,4 +121,4 @@ new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments']]
 
-st.table(new_df)
+st.experimental_data_editor(new_df)
