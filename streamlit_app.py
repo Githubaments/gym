@@ -95,6 +95,6 @@ for exercise in df['Exercise'].unique():
         }
 
         weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
-        set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
+        set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], step=1, key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
