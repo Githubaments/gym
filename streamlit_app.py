@@ -88,7 +88,7 @@ for exercise in df['Exercise'].unique():
             'set3': int(set3) if isinstance(set3, (int, float)) else 0,
         }
         try:
-            weight = st.number_input('Weight', value=previous_values[exercise]['weight'],step=1.0, key=f'{exercise}-weight')
+            weight = st.number_input('Weight', value=previous_values[exercise]['weight'],step=0.5, key=f'{exercise}-weight')
 
         except:
             weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
