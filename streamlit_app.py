@@ -58,7 +58,7 @@ for exercise in df['Exercise'].unique():
 # display inputs for each exercise
 for exercise in df['Exercise'].unique():
     
-    if exercise == 'Plate:
+    if exercise == 'Plate':
         st.write(previous_values[exercise])
            
     else:
