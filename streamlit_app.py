@@ -46,6 +46,9 @@ df = df[df['Date'] == latest_date]
 
 st.write(df)
 
+# create an empty list to hold the user input data
+user_data = []
+
 # define default values for previous input values
 previous_values = {}
 for exercise in df['Exercise'].unique():
