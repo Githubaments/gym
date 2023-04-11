@@ -48,7 +48,7 @@ st.write(df)
 
 
 # Loop through each exercise and show its details
-for exercise in exercises:
+for exercise in df['Exercise'].unique():
     st.write(exercise)
     st.write('-' * len(exercise))
     
