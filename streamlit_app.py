@@ -123,5 +123,9 @@ new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set
 
 st.experimental_data_editor(new_df)
 
-st.form_submit_button(label="Submit", help=None, on_click=None, args=None, kwargs=None, *, type="secondary", disabled=False, use_container_width=False)
-
+if st.form_submit_button(label="Submit"):
+    new_sheet_name = f"{selected_workout} ({latest_date})"
+    sh = gc.create(new_sheet_name)
+    worksheet = sh.get_worksheet(0)
+    worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
+    st.write(f"New data written to sheet: {new_sheet_name}")
