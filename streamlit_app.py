@@ -29,6 +29,7 @@ workout_data = [d for d in data if d['Workout'] == selected_workout]
 # Extract the exercises, weights, and sets data
 exercises = list(set([d['Exercise'] for d in workout_data]))
 latest_weights = []
+num_sets = []
 
 for exercise in exercises:
     # Filter the data by exercise and sort by date in descending order
