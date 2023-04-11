@@ -31,6 +31,8 @@ selected_workout = st.sidebar.selectbox('Select a workout', df['Workout'].unique
 df = df[df['Workout'] == selected_workout]
 
 # Filter by last dated workout
+
+st.write(df)
 latest_date = df['Date'].max()
 df = df[df['Date'] == latest_date]
 
