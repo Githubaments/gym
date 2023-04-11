@@ -126,6 +126,8 @@ st.experimental_data_editor(new_df)
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
         new_df = new_df.fillna(0)
+        new_df["Weight"] = new_df["Weight"].astype(str)
+        new_df
 
 
         new_sheet_name = f"{selected_workout} ({latest_date})"
