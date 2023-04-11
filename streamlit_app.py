@@ -46,6 +46,7 @@ df = df[df['Date'] == latest_date]
 
 st.write(df)
 
+# define default values for previous input values
 previous_values = {}
 for exercise in df['Exercise'].unique():
     previous_values[exercise] = {
@@ -57,7 +58,12 @@ for exercise in df['Exercise'].unique():
 
 # display inputs for each exercise
 for exercise in df['Exercise'].unique():
-    
+    # define default values for the input fields
+    weight = previous_values[exercise]['weight']
+    set1 = previous_values[exercise]['set1']
+    set2 = previous_values[exercise]['set2']
+    set3 = previous_values[exercise]['set3']
+
     if exercise == 'Plate':
         st.write(previous_values[exercise])
     else:
@@ -72,4 +78,3 @@ for exercise in df['Exercise'].unique():
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
-
