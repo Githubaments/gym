@@ -57,19 +57,43 @@ previous_values = {e: {'weight': None, 'set1': None, 'set2': None, 'set3': None}
 # Create a list to store the user input values
 input_values = []
 
-# Iterate through the exercises and generate input boxes for each set
-for exercise in exercises:
-    st.write(exercise)
-    weight = st.number_input('Weight', value=previous_values[exercise]['weight'])
-    set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'])
-    set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'])
-    set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'])
-    
-    # Store the user input values for each set in a dictionary
-    input_values.append({'Exercise': exercise, 'Weight': weight, 'Set 1': set1, 'Set 2': set2, 'Set 3': set3})
-    
-    # Update the previous values dictionary with the current values
-    previous_values[exercise]['weight'] = weight
-    previous_values[exercise]['set1'] = set1
-    previous_values[exercise]['set2'] = set2
-    previous_values[exercise]['set3'] = set3
+previous_values = {}
+for _, row in df.iterrows():
+    exercise = row['Exercise']
+    if exercise not in previous_values:
+        previous_values[exercise] = {'weight': 0, 'set1': 0, 'set2': 0, 'set3': 0}
+    previous_values[exercise]['weight'] = row['Weight']
+    previous_values[exercise]['set1'] = row['Set 1']
+    previous_values[exercise]['set2'] = row['Set 2']
+    previous_values[exercise]['set3'] = row['Set 3']
+
+# Allow the user to input new values for each exercise
+for exercise in previous_values:
+    st.write(f'## {exercise}')
+    weight = previous_values[exercise]['weight']
+    if isinstance(weight, (int, float)):
+        weight = st.number_input('Weight', value=weight)
+    else:
+        weight = st.number_input('Weight', value=0)
+        
+    set1 = previous_values[exercise]['set1']
+    if isinstance(set1, (int, float)):
+        set1 = st.number_input('Set 1', value=set1)
+    else:
+        set1 = st.number_input('Set 1', value=0)
+        
+    set2 = previous_values[exercise]['set2']
+    if isinstance(set2, (int, float)):
+        set2 = st.number_input('Set 2', value=set2)
+    else:
+        set2 = st.number_input('Set 2', value=0)
+        
+    set3 = previous_values[exercise]['set3']
+    if isinstance(set3, (int, float)):
+        set3 = st.number_input('Set 3', value=set3)
+    else:
+        set3 = st.number_input('Set 3', value=0)
+
+    # Do something with the new values (e.g. update the Google Sheet)
+    st.write(f'Weight: {weight}, Set 1: {set1}, Set 2: {set2}, Set 3: {set3}')
+
