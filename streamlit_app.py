@@ -65,7 +65,6 @@ for exercise in df['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
         st.write(exercise)
         col1, col2 = st.beta_columns(2)
         for i in range(1, 4):
