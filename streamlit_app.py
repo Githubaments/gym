@@ -46,15 +46,25 @@ df = df[df['Date'] == latest_date]
 
 st.write(df)
 
+previous_values = {}
+for exercise in df['Exercise'].unique():
+    previous_values[exercise] = {
+        'weight': df[df['Exercise'] == exercise]['Weight'].values[0],
+        'set1': df[df['Exercise'] == exercise]['Set 1'].values[0],
+        'set2': df[df['Exercise'] == exercise]['Set 2'].values[0],
+        'set3': df[df['Exercise'] == exercise]['Set 3'].values[0],
+    }
 
-# Loop through each exercise and show its details
+# display inputs for each exercise
 for exercise in df['Exercise'].unique():
     st.write(exercise)
-    st.write('-' * len(exercise))
-    
-    # Create number input boxes for weight and sets
-    weight = st.number_input('Weight', value=weight, key=f'{exercise}-weight')
-    set1 = st.number_input('Set 1', value=set1, key=f'{exercise}-set1', min_value=0, max_value=100, step=1)
-    set2 = st.number_input('Set 2', value=set2, key=f'{exercise}-set2', min_value=0, max_value=100, step=1)
-    set3 = st.number_input('Set 3', value=set3, key=f'{exercise}-set3', min_value=0, max_value=100, step=1)
-    
+    weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
+    set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
+    set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
+    set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
+    previous_values[exercise] = {
+        'weight': float(weight) if isinstance(weight, (int, float)) else 0,
+        'set1': float(set1) if isinstance(set1, (int, float)) else 0,
+        'set2': float(set2) if isinstance(set2, (int, float)) else 0,
+        'set3': float(set3) if isinstance(set3, (int, float)) else 0,
+    }
