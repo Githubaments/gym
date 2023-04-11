@@ -9,6 +9,12 @@ credentials = service_account.Credentials.from_service_account_info(
     scopes=[        "https://www.googleapis.com/auth/spreadsheets",        "https://www.googleapis.com/auth/drive",    ],
 )
 
+st.markdown(
+    '<div style="text-align: center;">'
+    'This text will be center-justified.'
+    '</div>',
+    unsafe_allow_html=True
+)
 
 gc = gspread.authorize(credentials)
 
