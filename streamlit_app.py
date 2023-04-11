@@ -20,30 +20,17 @@ data = sheet.get_all_records()
 # Extract the workout names
 workouts = list(set([d['Workout'] for d in data]))
 
+# Create Dataframe
+df = pd.DataFrame(data)
+
 # Allow the user to choose a workout to filter by
-selected_workout = st.sidebar.selectbox('Select a workout', workouts)
+selected_workout = st.sidebar.selectbox('Select a workout', df['Workout'].unique().tolist())
 
 # Filter the data by the selected workout
-workout_data = [d for d in data if d['Workout'] == selected_workout]
+df = df[df['Workout'] == selected_workout]
 
-# Extract the exercises, weights, and sets data
-exercises = list(set([d['Exercise'] for d in workout_data]))
-latest_weights = []
-num_sets = []
+# Filter by last dated workout
+latest_date = df['Date'].max()
+df = df[df['Date'] == latest_date]
 
-for exercise in exercises:
-    # Filter the data by exercise and sort by date in descending order
-    exercise_data = [d for d in workout_data if d['Exercise'] == exercise]
-    exercise_data.sort(key=lambda x: x['Date'], reverse=True)
-
-    # Extract the latest weight and sets for the exercise
-    latest_weight = [exercise_data[0]['Set 1'], exercise_data[0]['Set 2'], exercise_data[0]['Set 3']]
-    latest_weights.append(latest_weight)
-    num_sets.append(sum([1 for w in latest_weight if w != '']))
-
-    # Display the exercise and its latest weight and number of sets
-    st.write(exercise + ': ' + ', '.join(str(w) for w in latest_weight) + ' (' + str(num_sets[-1]) + ' sets)')
-
-# Display the data in a Streamlit app
-st.write('Latest weights:', latest_weights)
-st.write('Number of sets:', num_sets)
+st.write(df)
