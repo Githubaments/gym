@@ -24,6 +24,9 @@ workouts = list(set([d['Workout'] for d in data]))
 # Create Dataframe
 df = pd.DataFrame(data)
 
+# Full list exercises
+exercise_list = [''] + list(df['Exercise'].unique()) 
+
 # Convert Dates
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 
@@ -112,6 +115,16 @@ for exercise in df['Exercise'].unique():
     
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
+    
+    
+if selected_exercise != '':
+    # Create number input for weight
+    weight = st.number_input('Weight:', value=0, step=1)
+
+    # Create number inputs for sets
+    set1 = st.number_input('Set 1:', value=0, step=1)
+    set2 = st.number_input('Set 2:', value=0, step=1)
+    set3 = st.number_input('Set 3:', value=0, step=1)
 
 # create a new DataFrame with the user input data
 new_df = pd.DataFrame(user_data)
@@ -123,17 +136,7 @@ new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set
 
 new_df = st.experimental_data_editor(new_df)
 
-# Create a new sheet
-new_sheet = gc.create("My New Sheet")
 
-# Get the URL of the new sheet
-new_sheet_url = new_sheet.url
-
-
-new_sheet_name = f"{selected_workout} ({latest_date})"
-sh = gc.create(new_sheet_name)
-worksheet = sh.add_worksheet(title='New Sheet', rows=len(new_df)+1, cols=len(new_df.columns))
-worksheet.update([new_df.columns.values.tolist()] + new_df.fillna('').values.tolist())
 
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
