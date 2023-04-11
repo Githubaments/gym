@@ -27,9 +27,18 @@ selected_workout = st.sidebar.selectbox('Select a workout', workouts)
 workout_data = [d for d in data if d['Workout'] == selected_workout]
 
 # Extract the exercises, weights, and sets data
-exercises = [d['Exercise'] for d in workout_data]
-weights = [[d['Set 1'], d['Set 2'], d['Set 3']] for d in workout_data]
+exercises = list(set([d['Exercise'] for d in workout_data]))
+latest_weights = []
+
+for exercise in exercises:
+    # Filter the data by exercise and sort by date in descending order
+    exercise_data = [d for d in workout_data if d['Exercise'] == exercise]
+    exercise_data.sort(key=lambda x: x['Date'], reverse=True)
+
+    # Extract the latest weight for the exercise
+    latest_weight = [exercise_data[0]['Set 1'], exercise_data[0]['Set 2'], exercise_data[0]['Set 3']]
+    latest_weights.append(latest_weight)
 
 # Display the data in a Streamlit app
 st.write('Exercises:', exercises)
-st.write('Weights:', weights)
+st.write('Latest weights:', latest_weights)
