@@ -146,7 +146,7 @@ if selected_exercise != '':
     extra_user_input = {
         'Date': latest_date,
         'Workout': selected_workout,
-        'Exercise': exercise,
+        'Exercise': selected_exercise,
         'Weight': weight,
         'Set 1': set1,
         'Set 2': set2,
