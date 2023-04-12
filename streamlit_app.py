@@ -133,6 +133,8 @@ new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set
 selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
+    latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
+    st.write(latest_row)
     # Create an empty dictionary to store the selected values
     selected_values = {}
     # Create number input for weight
