@@ -39,31 +39,30 @@ df['Date'] = df['Date'].dt.date
 selected_workout = st.sidebar.selectbox('Select a workout', df['Workout'].unique().tolist())
 
 # Filter the data by the selected workout
-df = df[df['Workout'] == selected_workout]
+df_workout = df[df['Workout'] == selected_workout]
 
-# Filter by last dated workout
 
-st.write(df)
-latest_date = df['Date'].max()
-df = df[df['Date'] == latest_date]
+st.write(df_workout)
+latest_date = df_workout['Date'].max()
+df_date = df_workout[df_workout['Date'] == latest_date]
 
-st.write(df)
+st.write(df_date)
 
 # create an empty list to hold the user input data
 user_data = []
 
 # define default values for previous input values
 previous_values = {}
-for exercise in df['Exercise'].unique():
+for exercise in df_date['Exercise'].unique():
     previous_values[exercise] = {
-        'weight': df[df['Exercise'] == exercise]['Weight'].values[0],
-        'set1': df[df['Exercise'] == exercise]['Set 1'].values[0],
-        'set2': df[df['Exercise'] == exercise]['Set 2'].values[0],
-        'set3': df[df['Exercise'] == exercise]['Set 3'].values[0],
+        'weight': df_date[df_date['Exercise'] == exercise]['Weight'].values[0],
+        'set1': df_date[df_date['Exercise'] == exercise]['Set 1'].values[0],
+        'set2': df_date[df_date['Exercise'] == exercise]['Set 2'].values[0],
+        'set3': df_date[df_date['Exercise'] == exercise]['Set 3'].values[0],
     }
 
 # display inputs for each exercise
-for exercise in df['Exercise'].unique():
+for exercise in df_date['Exercise'].unique():
     st.markdown(f'<div style="text-align: center;">{exercise}</div>', unsafe_allow_html=True)
 
 
