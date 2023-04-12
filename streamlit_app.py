@@ -152,7 +152,7 @@ if selected_exercise != '':
         'Set 2': set2,
         'Set 3': set3
     }
-    new_df = new_df.append(selected_values, ignore_index=True)
+    new_df = new_df.append(extra_user_input, ignore_index=True)
 
 
 new_df = st.experimental_data_editor(new_df)
