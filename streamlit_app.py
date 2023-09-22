@@ -162,13 +162,17 @@ new_df = st.experimental_data_editor(new_df)
 
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
-        new_df = new_df.fillna(0)
-        new_df["Weight"] = new_df["Weight"].astype(str)
-        new_df
+        try:
+            new_df = new_df.fillna(0)
+            new_df["Weight"] = new_df["Weight"].astype(str)
 
+            new_sheet_name = f"{selected_workout} ({latest_date})"
+            sh = gc.create(new_sheet_name)
+            worksheet = sh.get_worksheet(0)
+            worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
 
-        new_sheet_name = f"{selected_workout} ({latest_date})"
-        sh = gc.create(new_sheet_name)
-        worksheet = sh.get_worksheet(0)
-        worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
-        st.write(f"New data written to sheet: {new_sheet_name}")
+            st.write(f"New data written to sheet: {new_sheet_name}")
+
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
+
