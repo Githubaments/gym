@@ -119,7 +119,7 @@ for exercise in df_date['Exercise'].unique():
             'Set 1': previous_values['Plate']['set1'],
             'Set 2': previous_values['Plate']['set2'],
             'Set 3': previous_values['Plate']['set3'],
-            "Progressive Overload": "No"
+            "PO": "No"
 
         }
 
