@@ -41,8 +41,11 @@ selected_workout = st.radio('Select a workout', df['Workout'].unique().tolist())
 # Filter the data by the selected workout
 df_workout = df[df['Workout'] == selected_workout]
 
+# Option to view all data
+with st.expander("Click to expand"):
+    reversed_df = df_workout.iloc[::-1]
+    st.write(reversed_df)
 
-st.write(df_workout)
 latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 
@@ -74,7 +77,7 @@ for exercise in df_date['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        col1, col2 = st.columns(2)
+        col1, col2,col3,col4,col5,col6 = st.columns(6)
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
