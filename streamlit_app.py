@@ -127,6 +127,7 @@ for exercise in df_date['Exercise'].unique():
             'Set 2': set2,
             'Set 3': set3
         }
+        user_input
 
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
@@ -165,7 +166,7 @@ if selected_exercise != '':
     }
     new_df = new_df.append(extra_user_input, ignore_index=True)
 
-new_df = st.experimental_data_editor(new_df)
+new_df = st.data_editor(new_df)
 
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
