@@ -167,8 +167,7 @@ with st.form(key='my_form'):
             new_df["Weight"] = new_df["Weight"].astype(str)
 
             update_details = f"{selected_workout} ({latest_date})"
-            worksheet = sh.get_worksheet(0)
-            worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
+            sheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
 
             st.write(f"New data written to sheet: {update_details}")
 
