@@ -171,7 +171,7 @@ with st.form(key='my_form'):
             num_rows = len(sheet.get_all_values())
             
             # Calculate the starting cell for new data (considering the header is only added once)
-            start_cell = f"A{num_rows + 2}" if num_rows > 0 else "A1"
+            start_cell = f"A{num_rows + 1}" if num_rows > 0 else "A1"
             
             # Append the data
             if num_rows == 0:
