@@ -36,7 +36,7 @@ df['Date'] = df['Date'].dt.date
 
 
 # Allow the user to choose a workout to filter by
-selected_workout = st.sidebar.selectbox('Select a workout', df['Workout'].unique().tolist())
+selected_workout = st.selectbox('Select a workout', df['Workout'].unique().tolist())
 
 # Filter the data by the selected workout
 df_workout = df[df['Workout'] == selected_workout]
