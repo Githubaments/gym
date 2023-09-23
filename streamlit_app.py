@@ -72,6 +72,7 @@ if 'counter' not in st.session_state:
     st.session_state.counter = 0
 
 placeholder = st.empty()
+st.session_state.running = False
 start_button = st.button("Start Timer")
 stop_button = st.button("Stop Timer")
 
