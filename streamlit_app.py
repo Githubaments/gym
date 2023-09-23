@@ -88,8 +88,7 @@ for exercise in df_date['Exercise'].unique():
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
                 previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
 
-        st.write("here")
-        st.write(previous_values)
+
         user_input = {
             'Workout': selected_workout,
             'Date': latest_date,
@@ -130,7 +129,6 @@ for exercise in df_date['Exercise'].unique():
             'Set 2': set2,
             'Set 3': set3
         }
-        user_input
 
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
