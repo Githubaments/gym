@@ -187,7 +187,7 @@ new_df['Comments'] = ''
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
 
 exercise_list = [''] + list(df['Exercise'].unique())
-    selected_exercise = st.selectbox('Exercise', exercise_list)
+selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
