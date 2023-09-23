@@ -133,7 +133,7 @@ for exercise in df_date['Exercise'].unique():
         }
         if set1 >= 12 and set2 >= 12 and set3 >= 12:
             # Set all integers to 6
-            set1 = set2 = set3 = 6
+            previous_values[exercise]['set1'] = previous_values[exercise]['set2'] = previous_values[exercise]['set3'] = 6
             st.write("Progressive Overload. Increase the weight")
         else:
             # Increment each integer by one
