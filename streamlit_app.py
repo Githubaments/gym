@@ -36,7 +36,7 @@ def fetch_data():
     # Read the data from the sheet
     data = sheet.get_all_records()
     df = pd.DataFrame(data)
-    df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+    df['Date'] = pd.to_datetime(df['Date'])
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
     df['Date'] = df['Date'].dt.date
     return df
@@ -186,8 +186,8 @@ new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
 
-exercise_list = [''] + list(df['Exercise'].unique())
-selected_exercise = st.selectbox('Exercise', exercise_list)
+exercise_list = [''] + list(st.session_state.df['Exercise'].unique())
+    selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
