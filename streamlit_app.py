@@ -174,29 +174,20 @@ for exercise in df_date['Exercise'].unique():
 
         }
 
-    # add the user input dictionary to the list of user data
     if 'user_data' not in st.session_state:
-    st.session_state.user_data = []
-user_data = st.session_state.user_data
-st.session_state.user_data.append(user_input)
+        st.session_state.user_data = []
+    user_data = st.session_state.user_data
+    st.session_state.user_data.append(user_input)
 
+    exercise_list = [''] + list(st.session_state.df['Exercise'].unique())
+    selected_exercise = st.selectbox('Exercise', exercise_list)
 
-
-
-
-
-# Reorder columns
-
-
-exercise_list = [''] + list(st.session_state.df['Exercise'].unique())
-selected_exercise = st.selectbox('Exercise', exercise_list)
-
-# Create and modify new_df after collecting all inputs
-new_df = pd.DataFrame(st.session_state.user_data)
-new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
-new_df['Workout'] = selected_workout
-new_df['Comments'] = ''
-new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
+    # Create and modify new_df after collecting all inputs
+    new_df = pd.DataFrame(st.session_state.user_data)
+    new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
+    new_df['Workout'] = selected_workout
+    new_df['Comments'] = ''
+    new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO', 'Comments']]
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
