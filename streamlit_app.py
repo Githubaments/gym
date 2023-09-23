@@ -71,8 +71,12 @@ st.write(df_date)
 if st.button("Refresh Data"):
     st.session_state.df = fetch_data()
 
-# TODO: Add the remaining code (gather user input, apply logic, submit data to Google Sheets)
-ise'] == exercise]['Weight'].values[0],
+# define default values for previous input values
+previous_values = {}
+
+for exercise in df_date['Exercise'].unique():
+    previous_values[exercise] = {
+        'weight': df_date[df_date['Exercise'] == exercise]['Weight'].values[0],
         'set1': df_date[df_date['Exercise'] == exercise]['Set 1'].values[0],
         'set2': df_date[df_date['Exercise'] == exercise]['Set 2'].values[0],
         'set3': df_date[df_date['Exercise'] == exercise]['Set 3'].values[0],
