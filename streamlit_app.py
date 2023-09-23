@@ -127,10 +127,19 @@ for exercise in df_date['Exercise'].unique():
     else:
         previous_values[exercise] = {
             'weight': float(weight) if isinstance(weight, (int, float)) else 0,
-            'set1': int(set1) + 1 if isinstance(set1, (int, float)) else 0,
-            'set2': int(set2) + 1 if isinstance(set2, (int, float)) else 0,
-            'set3': int(set3) + 1 if isinstance(set3, (int, float)) else 0,
+            'set1': int(set1) if isinstance(set1, (int, float)) else 0,
+            'set2': int(set2) if isinstance(set2, (int, float)) else 0,
+            'set3': int(set3) if isinstance(set3, (int, float)) else 0,
         }
+        if set1 >= 12 and set2 >= 12 and set3 >= 12:
+            # Set all integers to 6
+            set1 = set2 = set3 = 6
+            st.write("Progressive Overload. Increase the weight")
+        else:
+            # Increment each integer by one
+            set1 += 1
+            set2 += 1
+            set3 += 1
         try:
             weight = st.number_input('Weight', value=previous_values[exercise]['weight'], step=0.5,
                                      key=f'{exercise}-weight')
