@@ -166,12 +166,11 @@ with st.form(key='my_form'):
             new_df = new_df.fillna(0)
             new_df["Weight"] = new_df["Weight"].astype(str)
 
-            new_sheet_name = f"{selected_workout} ({latest_date})"
-            sh = gc.create(new_sheet_name)
+            update_details = f"{selected_workout} ({latest_date})"
             worksheet = sh.get_worksheet(0)
             worksheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
 
-            st.write(f"New data written to sheet: {new_sheet_name}")
+            st.write(f"New data written to sheet: {update_details}")
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
