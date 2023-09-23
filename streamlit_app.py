@@ -166,7 +166,7 @@ with st.form(key='my_form'):
             new_df = new_df.fillna(0)
             new_df["Weight"] = new_df["Weight"].astype(str)
     
-                update_details = f"{selected_workout} ({latest_date})"
+            update_details = f"{selected_workout} ({latest_date})"
             # Get the number of rows that have data
             num_rows = len(worksheet.get_all_values())
             
