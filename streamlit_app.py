@@ -131,11 +131,13 @@ for exercise in df_date['Exercise'].unique():
             'set2': int(set2) if isinstance(set2, (int, float)) else 0,
             'set3': int(set3) if isinstance(set3, (int, float)) else 0,
         }
+
+        st.write(previous_values[exercise]['set1']) 
+        st.write(previous_values[exercise]['set2']) 
+        st.write(previous_values[exercise]['set3']) 
         if set1 >= 12 and set2 >= 12 and set3 >= 12:
             # Set all integers to 6
-            st.write(previous_values[exercise]['set1']) 
-            st.write(previous_values[exercise]['set2']) 
-            st.write(previous_values[exercise]['set3']) 
+
             previous_values[exercise]['set1'] = previous_values[exercise]['set2'] = previous_values[exercise]['set3'] = 6
             st.error("Progressive Overload. Increase the weight")
         else:
