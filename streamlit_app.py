@@ -82,7 +82,7 @@ for exercise in df_date['Exercise'].unique():
 
 # display inputs for each exercise
 for exercise in df_date['Exercise'].unique():
-    st.markdown(f'<div style="text-align: center;">{exercise}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="text-align: center;"><strong>{exercise}</strong></div>', unsafe_allow_html=True)
 
     # define default values for the input fields
     weight = previous_values[exercise]['weight']
