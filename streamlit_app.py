@@ -67,9 +67,6 @@ latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 st.write(df_date)
 
-# create an empty list to hold the user input data
-user_data = []
-
 # Option to manually refresh the dataframe before submission
 if st.button("Refresh Data"):
     st.session_state.df = fetch_data()
@@ -178,6 +175,7 @@ for exercise in df_date['Exercise'].unique():
         }
 
     # add the user input dictionary to the list of user data
+    user_data = []
     user_data.append(user_input)
 
 # create a new DataFrame with the user input data
@@ -188,7 +186,8 @@ new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
 
-selected_exercise = st.selectbox('Exercise', exercise_list)
+exercise_list = [''] + list(df['Exercise'].unique())
+    selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
