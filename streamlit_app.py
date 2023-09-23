@@ -75,7 +75,7 @@ previous_values = {}
 for exercise in df_date['Exercise'].unique():
     previous_values[exercise] = {
         'weight': df_date[df_date['Exercise'] == exercise]['Weight'].values[0],
-        'set1': df_date[df_date['Exercise'] == exercise]['Set 1'].values[0] + 1,
+        'set1': df_date[df_date['Exercise'] == exercise]['Set 1'].values[0],
         'set2': df_date[df_date['Exercise'] == exercise]['Set 2'].values[0],
         'set3': df_date[df_date['Exercise'] == exercise]['Set 3'].values[0],
     }
@@ -127,9 +127,9 @@ for exercise in df_date['Exercise'].unique():
     else:
         previous_values[exercise] = {
             'weight': float(weight) if isinstance(weight, (int, float)) else 0,
-            'set1': int(set1) if isinstance(set1, (int, float)) else 0,
-            'set2': int(set2) if isinstance(set2, (int, float)) else 0,
-            'set3': int(set3) if isinstance(set3, (int, float)) else 0,
+            'set1': int(set1) + 1 if isinstance(set1, (int, float)) else 0,
+            'set2': int(set2) + 1 if isinstance(set2, (int, float)) else 0,
+            'set3': int(set3) + 1 if isinstance(set3, (int, float)) else 0,
         }
         try:
             weight = st.number_input('Weight', value=previous_values[exercise]['weight'], step=0.5,
