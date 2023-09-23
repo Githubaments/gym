@@ -21,6 +21,14 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+def countup_timer():
+    placeholder = st.empty()
+    i = 0
+    while True:
+        placeholder.text(f"Time elapsed: {i} seconds")
+        time.sleep(1)
+        i += 1
+
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
@@ -66,6 +74,9 @@ latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 
 st.write(df_date)
+
+if st.button("Start Timer"):
+        countup_timer()
 
 # create an empty list to hold the user input data
 user_data = []
