@@ -176,9 +176,9 @@ for exercise in df_date['Exercise'].unique():
 
     # add the user input dictionary to the list of user data
     if 'user_data' not in st.session_state:
-    st.session_state.user_data = []
-user_data = st.session_state.user_data
-    st.session_state.user_data.append(user_input)
+        st.session_state.user_data = []
+        user_data = st.session_state.user_data
+        st.session_state.user_data.append(user_input)
 
 # create a new DataFrame with the user input data
 
