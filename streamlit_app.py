@@ -74,7 +74,8 @@ for exercise in df_date['Exercise'].unique():
 
     if exercise == 'Plate':
         col1, col2, col3, col4, col5, col6 = st.columns(6)
-
+        plate_weights = []
+        plate_sets = []
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
@@ -86,6 +87,16 @@ for exercise in df_date['Exercise'].unique():
                 set_val1 = col1.number_input(f'Weight {i}', value=0, key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
                 previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
+
+        user_input = {
+            'Workout': selected_workout,
+            'Date': latest_date,
+            'Exercise': exercise,
+            'Weight': 0,
+            'Set 1': previous_values[0],
+            'Set 2': previous_values[1],
+            'Set 3': previous_values[2]
+        }
 
 
 
@@ -107,15 +118,15 @@ for exercise in df_date['Exercise'].unique():
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
 
     # create a dictionary to hold the user input values for this exercise
-    user_input = {
-        'Workout': selected_workout,
-        'Date': latest_date,
-        'Exercise': exercise,
-        'Weight': weight,
-        'Set 1': set1,
-        'Set 2': set2,
-        'Set 3': set3
-    }
+        user_input = {
+            'Workout': selected_workout,
+            'Date': latest_date,
+            'Exercise': exercise,
+            'Weight': weight,
+            'Set 1': set1,
+            'Set 2': set2,
+            'Set 3': set3
+        }
 
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
