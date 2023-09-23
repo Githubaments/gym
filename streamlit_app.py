@@ -157,7 +157,7 @@ for exercise in df_date['Exercise'].unique():
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
-        
+
 
     # create a dictionary to hold the user input values for this exercise
         user_input = {
@@ -181,7 +181,7 @@ new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
 new_df['Workout'] = selected_workout
 new_df['Comments'] = ''
 # Reorder columns
-new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments']]
+new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments','Progressive Overload']]
 
 selected_exercise = st.selectbox('Exercise', exercise_list)
 
