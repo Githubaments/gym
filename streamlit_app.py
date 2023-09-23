@@ -118,7 +118,8 @@ for exercise in df_date['Exercise'].unique():
             'Weight': None,
             'Set 1': previous_values['Plate']['set1'],
             'Set 2': previous_values['Plate']['set2'],
-            'Set 3': previous_values['Plate']['set3']
+            'Set 3': previous_values['Plate']['set3'],
+            "Progressive Overload": "No"
 
         }
 
@@ -156,6 +157,7 @@ for exercise in df_date['Exercise'].unique():
         set1 = st.number_input('Set 1', value=previous_values[exercise]['set1'], key=f'{exercise}-set1')
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
+        
 
     # create a dictionary to hold the user input values for this exercise
         user_input = {
@@ -165,7 +167,9 @@ for exercise in df_date['Exercise'].unique():
             'Weight': weight,
             'Set 1': set1,
             'Set 2': set2,
-            'Set 3': set3
+            'Set 3': set3,
+            "Progressive Overload": df_date[df_date['Exercise'] == exercise]['Progressive Overload'].iloc[0]
+
         }
 
     # add the user input dictionary to the list of user data
