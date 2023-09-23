@@ -3,6 +3,24 @@ import gspread
 import pandas as pd
 from google.oauth2 import service_account
 
+# Add custom CSS styles
+st.markdown(
+    """
+    <style>
+    /* Define CSS rules for mobile devices (screen width less than 600px) */
+    @media (max-width: 600px) {
+        .custom-columns {
+            display: block;
+        }
+        .custom-column {
+            width: 100%;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
@@ -73,8 +91,13 @@ for exercise in df_date['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        col1, col2 = st.columns(2)
+        # Apply custom CSS class to the columns
+        
+        col1.markdown('<div class="custom-columns custom-column">', unsafe_allow_html=True)
+        col2.markdown('<div class="custom-columns custom-column">', unsafe_allow_html=True)
 
+        
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
