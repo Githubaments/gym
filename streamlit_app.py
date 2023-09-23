@@ -88,6 +88,14 @@ for exercise in df_date['Exercise'].unique():
             else:
                 set_val1 = col1.number_input(f'Weight {i}', value=0, key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
+                user_input = {
+                'Workout': workout,
+                'Date': today_date,
+                'Exercise': exercise,
+                'Weight': "",  # This will be blank since weight and reps are combined
+                'Set 1': previous_values.get('set1', ''),
+                'Set 2': previous_values.get('set2', ''),
+                'Set 3': previous_values.get('set3', '')
     else:
         previous_values[exercise] = {
             'weight': float(weight) if isinstance(weight, (int, float)) else 0,
