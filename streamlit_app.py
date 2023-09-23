@@ -1,16 +1,13 @@
-
 import streamlit as st
 import gspread
 import pandas as pd
 from google.oauth2 import service_account
 
-if 'progress_state' not in st.session_state:
-    st.session_state.progress_state = "start"
-
 # Add custom CSS styles
 st.markdown(
     """
     <style>
+    /* Define CSS rules for mobile devices (screen width less than 600px) */
     @media (max-width: 600px) {
         .custom-columns {
             display: block;
@@ -35,31 +32,30 @@ gc = gspread.authorize(credentials)
 # Open the Google Sheet by name
 sheet = gc.open('Gym Log').sheet1
 
-def fetch_data():
-    # Read the data from the sheet
-    data = sheet.get_all_records()
-    df = pd.DataFrame(data)
-    df['Date'] = pd.to_datetime(df['Date'])
-    df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
-    df['Date'] = df['Date'].dt.date
-    return df
+# Read the data from the sheet
+data = sheet.get_all_records()
 
-# Initialize session state variables if they don't exist
-if 'df' not in st.session_state:
-    st.session_state.df = fetch_data()
+# Extract the workout names
+workouts = list(set([d['Workout'] for d in data]))
 
-if 'selected_workout' not in st.session_state:
-    st.session_state.selected_workout = st.session_state.df['Workout'].unique().tolist()[0]
+# Create Dataframe
+df = pd.DataFrame(data)
+
+# Full list exercises
+exercise_list = [''] + list(df['Exercise'].unique())
+
+# Convert Dates
+df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+
+# change the format of the dates to dd/mm/yy
+df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
+df['Date'] = df['Date'].dt.date
 
 # Allow the user to choose a workout to filter by
-selected_workout = st.radio('Select a workout', st.session_state.df['Workout'].unique().tolist())
-
-# If the selected workout changes, update the session state variable
-if selected_workout != st.session_state.selected_workout:
-    st.session_state.selected_workout = selected_workout
+selected_workout = st.radio('Select a workout', df['Workout'].unique().tolist())
 
 # Filter the data by the selected workout
-df_workout = st.session_state.df[st.session_state.df['Workout'] == st.session_state.selected_workout]
+df_workout = df[df['Workout'] == selected_workout]
 
 # Option to view all data
 with st.expander("Click to expand"):
@@ -68,15 +64,14 @@ with st.expander("Click to expand"):
 
 latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
+
 st.write(df_date)
 
-# Option to manually refresh the dataframe before submission
-if st.button("Refresh Data"):
-    st.session_state.df = fetch_data()
+# create an empty list to hold the user input data
+user_data = []
 
 # define default values for previous input values
 previous_values = {}
-
 for exercise in df_date['Exercise'].unique():
     previous_values[exercise] = {
         'weight': df_date[df_date['Exercise'] == exercise]['Weight'].values[0],
@@ -178,34 +173,17 @@ for exercise in df_date['Exercise'].unique():
         }
 
     # add the user input dictionary to the list of user data
-    if 'user_data' not in st.session_state:
-        st.session_state.user_data = []
-        user_data = st.session_state.user_data
-else:
-    user_data = st.session_state.user_data
-if st.button('Submit Exercise'):
-    st.session_state.user_data.append(user_input)
-user_data = st.session_state.user_data
-if st.button('Submit Exercise'):
-    st.session_state.user_data.append(user_input)
+    user_data.append(user_input)
 
-
-
-
-
-
-# Reorder columns
-
-
-exercise_list = [''] + list(st.session_state.df['Exercise'].unique())
-selected_exercise = st.selectbox('Exercise', exercise_list, key='selectbox_0')
-
-# Create and modify new_df after collecting all inputs
-new_df = pd.DataFrame(st.session_state.user_data)
+# create a new DataFrame with the user input data
+new_df = pd.DataFrame(user_data)
 new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
 new_df['Workout'] = selected_workout
 new_df['Comments'] = ''
+# Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
+
+selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
@@ -231,9 +209,6 @@ if selected_exercise != '':
     }
     new_df = new_df.append(extra_user_input, ignore_index=True)
 
-new_df = pd.DataFrame(st.session_state.user_data)
-new_df = pd.DataFrame(st.session_state.user_data)
-new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
 new_df = st.data_editor(new_df)
 
 with st.form(key='my_form'):
