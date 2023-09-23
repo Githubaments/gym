@@ -86,6 +86,8 @@ for exercise in df_date['Exercise'].unique():
             else:
                 set_val1 = col1.number_input(f'Weight {i}', value=0, key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
+                previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
+
         st.write(previous_values)
         st.write(set_val1)
         st.write(set_val2)
