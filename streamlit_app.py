@@ -87,7 +87,8 @@ for exercise in df_date['Exercise'].unique():
                 set_val1 = col1.number_input(f'Weight {i}', value=0, key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
                 previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
-
+        previous_values
+        previous_values[0]
         user_input = {
             'Workout': selected_workout,
             'Date': latest_date,
