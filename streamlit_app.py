@@ -1,12 +1,11 @@
 
-if 'progress_state' not in st.session_state:
-    st.session_state.progress_state = "start"
-
-
 import streamlit as st
 import gspread
 import pandas as pd
 from google.oauth2 import service_account
+
+if 'progress_state' not in st.session_state:
+    st.session_state.progress_state = "start"
 
 # Add custom CSS styles
 st.markdown(
