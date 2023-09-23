@@ -176,7 +176,7 @@ selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
-    st.write("f__{latest_row}__")
+    st.markdown(f"**{latest_row}**")
     # Create an empty dictionary to store the selected values
     selected_values = {}
     # Create number input for weight
