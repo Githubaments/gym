@@ -22,6 +22,7 @@ st.markdown(
 )
 
 def countup_timer():
+    import time
     placeholder = st.empty()
     i = 0
     while True:
