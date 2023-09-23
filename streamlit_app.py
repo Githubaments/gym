@@ -137,9 +137,9 @@ for exercise in df_date['Exercise'].unique():
             st.error("Progressive Overload. Increase the weight")
         else:
             # Increment each integer by one
-            set1 += 1
-            set2 += 1
-            set3 += 1
+            previous_values[exercise]['set1'] += 1
+            previous_values[exercise]['set2'] += 1
+            previous_values[exercise]['set3'] += 1
         try:
             weight = st.number_input('Weight', value=previous_values[exercise]['weight'], step=0.5,
                                      key=f'{exercise}-weight')
