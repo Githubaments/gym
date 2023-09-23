@@ -134,7 +134,7 @@ for exercise in df_date['Exercise'].unique():
         }
 
         # Fetch the value of Progressive Overload for the specific exercise
-        progressive_overload = df_date[df_date['Exercise'] == exercise]['Progressive Overload'].iloc[0]
+        progressive_overload = df_date[df_date['Exercise'] == exercise]['PO'].iloc[0]
 
         if progressive_overload == "Yes":
             if set1 >= 12 and set2 >= 12 and set3 >= 12:
@@ -168,7 +168,7 @@ for exercise in df_date['Exercise'].unique():
             'Set 1': set1,
             'Set 2': set2,
             'Set 3': set3,
-            "Progressive Overload": df_date[df_date['Exercise'] == exercise]['Progressive Overload'].iloc[0]
+            "PO": df_date[df_date['Exercise'] == exercise]['PO'].iloc[0]
 
         }
 
@@ -181,7 +181,7 @@ new_df['Date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
 new_df['Workout'] = selected_workout
 new_df['Comments'] = ''
 # Reorder columns
-new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments','Progressive Overload']]
+new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
 
 selected_exercise = st.selectbox('Exercise', exercise_list)
 
