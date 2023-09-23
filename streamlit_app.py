@@ -74,8 +74,7 @@ for exercise in df_date['Exercise'].unique():
 
     if exercise == 'Plate':
         col1, col2, col3, col4, col5, col6 = st.columns(6)
-        plate_weights = []
-        plate_sets = []
+
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
