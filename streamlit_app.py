@@ -1,3 +1,4 @@
+
 import streamlit as st
 import gspread
 import pandas as pd
@@ -7,7 +8,6 @@ from google.oauth2 import service_account
 st.markdown(
     """
     <style>
-    /* Define CSS rules for mobile devices (screen width less than 600px) */
     @media (max-width: 600px) {
         .custom-columns {
             display: block;
@@ -32,30 +32,31 @@ gc = gspread.authorize(credentials)
 # Open the Google Sheet by name
 sheet = gc.open('Gym Log').sheet1
 
-# Read the data from the sheet
-data = sheet.get_all_records()
+def fetch_data():
+    # Read the data from the sheet
+    data = sheet.get_all_records()
+    df = pd.DataFrame(data)
+    df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+    df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
+    df['Date'] = df['Date'].dt.date
+    return df
 
-# Extract the workout names
-workouts = list(set([d['Workout'] for d in data]))
+# Initialize session state variables if they don't exist
+if 'df' not in st.session_state:
+    st.session_state.df = fetch_data()
 
-# Create Dataframe
-df = pd.DataFrame(data)
-
-# Full list exercises
-exercise_list = [''] + list(df['Exercise'].unique())
-
-# Convert Dates
-df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
-
-# change the format of the dates to dd/mm/yy
-df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
-df['Date'] = df['Date'].dt.date
+if 'selected_workout' not in st.session_state:
+    st.session_state.selected_workout = st.session_state.df['Workout'].unique().tolist()[0]
 
 # Allow the user to choose a workout to filter by
-selected_workout = st.radio('Select a workout', df['Workout'].unique().tolist())
+selected_workout = st.radio('Select a workout', st.session_state.df['Workout'].unique().tolist())
+
+# If the selected workout changes, update the session state variable
+if selected_workout != st.session_state.selected_workout:
+    st.session_state.selected_workout = selected_workout
 
 # Filter the data by the selected workout
-df_workout = df[df['Workout'] == selected_workout]
+df_workout = st.session_state.df[st.session_state.df['Workout'] == st.session_state.selected_workout]
 
 # Option to view all data
 with st.expander("Click to expand"):
@@ -64,17 +65,14 @@ with st.expander("Click to expand"):
 
 latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
-
 st.write(df_date)
 
-# create an empty list to hold the user input data
-user_data = []
+# Option to manually refresh the dataframe before submission
+if st.button("Refresh Data"):
+    st.session_state.df = fetch_data()
 
-# define default values for previous input values
-previous_values = {}
-for exercise in df_date['Exercise'].unique():
-    previous_values[exercise] = {
-        'weight': df_date[df_date['Exercise'] == exercise]['Weight'].values[0],
+# TODO: Add the remaining code (gather user input, apply logic, submit data to Google Sheets)
+ise'] == exercise]['Weight'].values[0],
         'set1': df_date[df_date['Exercise'] == exercise]['Set 1'].values[0],
         'set2': df_date[df_date['Exercise'] == exercise]['Set 2'].values[0],
         'set3': df_date[df_date['Exercise'] == exercise]['Set 3'].values[0],
