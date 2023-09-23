@@ -89,8 +89,7 @@ for exercise in df_date['Exercise'].unique():
                 previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
 
         st.write(previous_values)
-        st.write(set_val1)
-        st.write(set_val2)
+
 
     else:
         previous_values[exercise] = {
