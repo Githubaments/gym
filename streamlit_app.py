@@ -134,7 +134,7 @@ for exercise in df_date['Exercise'].unique():
         if set1 >= 12 and set2 >= 12 and set3 >= 12:
             # Set all integers to 6
             previous_values[exercise]['set1'] = previous_values[exercise]['set2'] = previous_values[exercise]['set3'] = 6
-            st.write("Progressive Overload. Increase the weight")
+            st.error("Progressive Overload. Increase the weight")
         else:
             # Increment each integer by one
             set1 += 1
@@ -176,7 +176,7 @@ selected_exercise = st.selectbox('Exercise', exercise_list)
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
-    st.write(latest_row)
+    st.write("f__{latest_row}__")
     # Create an empty dictionary to store the selected values
     selected_values = {}
     # Create number input for weight
