@@ -93,7 +93,7 @@ for exercise in df_date['Exercise'].unique():
             'Workout': selected_workout,
             'Date': latest_date,
             'Exercise': exercise,
-            'Weight': 0,
+            'Weight': None,
             'Set 1': previous_values['Plate']['set1'],
             'Set 2': previous_values['Plate']['set2'],
             'Set 3': previous_values['Plate']['set3']
