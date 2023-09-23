@@ -132,9 +132,9 @@ for exercise in df_date['Exercise'].unique():
             'set3': int(set3) if isinstance(set3, (int, float)) else 0,
         }
 
-        st.write(previous_values[exercise]['set1']) 
-        st.write(previous_values[exercise]['set2']) 
-        st.write(previous_values[exercise]['set3']) 
+        st.write(type(previous_values[exercise]['set1']) )
+        st.write(type(previous_values[exercise]['set2']) )
+        st.write(type(previous_values[exercise]['set3'])) 
         if set1 >= 12 and set2 >= 12 and set3 >= 12:
             # Set all integers to 6
 
@@ -145,6 +145,7 @@ for exercise in df_date['Exercise'].unique():
             previous_values[exercise]['set1'] += 1
             previous_values[exercise]['set2'] += 1
             previous_values[exercise]['set3'] += 1
+            
         try:
             weight = st.number_input('Weight', value=previous_values[exercise]['weight'], step=0.5,
                                      key=f'{exercise}-weight')
