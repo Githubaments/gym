@@ -167,7 +167,20 @@ with st.form(key='my_form'):
             new_df["Weight"] = new_df["Weight"].astype(str)
 
             update_details = f"{selected_workout} ({latest_date})"
-            sheet.update([new_df.columns.values.tolist()] + new_df.values.tolist())
+        # Get the number of rows that have data
+        num_rows = len(worksheet.get_all_values())
+        
+        # Calculate the starting cell for new data (considering the header is only added once)
+        start_cell = f"A{num_rows + 2}" if num_rows > 0 else "A1"
+        
+        # Append the data
+        if num_rows == 0:
+            # If the sheet is empty, also include the headers
+            worksheet.update(start_cell, [new_df.columns.values.tolist()] + new_df.values.tolist())
+        else:
+            # Otherwise, just append the data rows
+            worksheet.update(start_cell, new_df.values.tolist())
+
 
             st.write(f"New data written to sheet: {update_details}")
 
