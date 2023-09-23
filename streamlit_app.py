@@ -67,6 +67,9 @@ latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 st.write(df_date)
 
+# create an empty list to hold the user input data
+user_data = []
+
 # Option to manually refresh the dataframe before submission
 if st.button("Refresh Data"):
     st.session_state.df = fetch_data()
