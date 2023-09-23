@@ -6,9 +6,8 @@ from google.oauth2 import service_account
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
-    scopes=[        "https://www.googleapis.com/auth/spreadsheets",        "https://www.googleapis.com/auth/drive",    ],
+    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive", ],
 )
-
 
 gc = gspread.authorize(credentials)
 
@@ -25,7 +24,7 @@ workouts = list(set([d['Workout'] for d in data]))
 df = pd.DataFrame(data)
 
 # Full list exercises
-exercise_list = [''] + list(df['Exercise'].unique()) 
+exercise_list = [''] + list(df['Exercise'].unique())
 
 # Convert Dates
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
@@ -33,7 +32,6 @@ df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 # change the format of the dates to dd/mm/yy
 df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
 df['Date'] = df['Date'].dt.date
-
 
 # Allow the user to choose a workout to filter by
 selected_workout = st.radio('Select a workout', df['Workout'].unique().tolist())
@@ -68,8 +66,6 @@ for exercise in df_date['Exercise'].unique():
 for exercise in df_date['Exercise'].unique():
     st.markdown(f'<div style="text-align: center;">{exercise}</div>', unsafe_allow_html=True)
 
-
-
     # define default values for the input fields
     weight = previous_values[exercise]['weight']
     set1 = previous_values[exercise]['set1']
@@ -77,7 +73,9 @@ for exercise in df_date['Exercise'].unique():
     set3 = previous_values[exercise]['set3']
 
     if exercise == 'Plate':
-        col1, col2,col3,col4,col5,col6 = st.columns(6)
+        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        plate_weights = []
+        plate_sets = []
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
@@ -88,6 +86,10 @@ for exercise in df_date['Exercise'].unique():
             else:
                 set_val1 = col1.number_input(f'Weight {i}', value=0, key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
+        st.write(exercise)
+        st.write(previous_values)
+        st.write(set_val1)
+        st.write(set_val2)
 
     else:
         previous_values[exercise] = {
@@ -97,7 +99,8 @@ for exercise in df_date['Exercise'].unique():
             'set3': int(set3) if isinstance(set3, (int, float)) else 0,
         }
         try:
-            weight = st.number_input('Weight', value=previous_values[exercise]['weight'],step=0.5, key=f'{exercise}-weight')
+            weight = st.number_input('Weight', value=previous_values[exercise]['weight'], step=0.5,
+                                     key=f'{exercise}-weight')
 
         except:
             weight = st.number_input('Weight', value=previous_values[exercise]['weight'], key=f'{exercise}-weight')
@@ -105,7 +108,7 @@ for exercise in df_date['Exercise'].unique():
         set2 = st.number_input('Set 2', value=previous_values[exercise]['set2'], key=f'{exercise}-set2')
         set3 = st.number_input('Set 3', value=previous_values[exercise]['set3'], key=f'{exercise}-set3')
 
-  # create a dictionary to hold the user input values for this exercise
+    # create a dictionary to hold the user input values for this exercise
     user_input = {
         'Workout': selected_workout,
         'Date': latest_date,
@@ -115,12 +118,9 @@ for exercise in df_date['Exercise'].unique():
         'Set 2': set2,
         'Set 3': set3
     }
-    
+
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
-    
-
-
 
 # create a new DataFrame with the user input data
 new_df = pd.DataFrame(user_data)
@@ -129,9 +129,6 @@ new_df['Workout'] = selected_workout
 new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'Comments']]
-
-
-
 
 selected_exercise = st.selectbox('Exercise', exercise_list)
 
@@ -147,7 +144,7 @@ if selected_exercise != '':
     set1 = st.number_input('Set 1:', value=0, step=1)
     set2 = st.number_input('Set 2:', value=0, step=1)
     set3 = st.number_input('Set 3:', value=0, step=1)
-    
+
     extra_user_input = {
         'Date': latest_date,
         'Workout': selected_workout,
@@ -159,24 +156,21 @@ if selected_exercise != '':
     }
     new_df = new_df.append(extra_user_input, ignore_index=True)
 
-
 new_df = st.experimental_data_editor(new_df)
-
-
 
 with st.form(key='my_form'):
     if st.form_submit_button(label="Submit"):
         try:
             new_df = new_df.fillna(0)
             new_df["Weight"] = new_df["Weight"].astype(str)
-    
+
             update_details = f"{selected_workout} ({latest_date})"
             # Get the number of rows that have data
             num_rows = len(sheet.get_all_values())
-            
+
             # Calculate the starting cell for new data (considering the header is only added once)
             start_cell = f"A{num_rows + 1}" if num_rows > 0 else "A1"
-            
+
             # Append the data
             if num_rows == 0:
                 # If the sheet is empty, also include the headers
@@ -184,10 +178,8 @@ with st.form(key='my_form'):
             else:
                 # Otherwise, just append the data rows
                 sheet.update(start_cell, new_df.values.tolist())
-    
-    
+
                 st.write(f"New data written to sheet: {update_details}")
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
-
