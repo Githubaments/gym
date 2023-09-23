@@ -1,7 +1,6 @@
 import streamlit as st
 import gspread
 import pandas as pd
-import time
 from google.oauth2 import service_account
 
 # Add custom CSS styles
@@ -68,28 +67,6 @@ latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 
 st.write(df_date)
-
-if 'counter' not in st.session_state:
-    st.session_state.counter = 0
-
-placeholder = st.empty()
-st.session_state.running = False
-start_button = st.button("Start Timer")
-stop_button = st.button("Stop Timer")
-
-if start_button:
-    st.session_state.running = True
-
-if stop_button:
-    st.session_state.running = False
-
-while st.session_state.running:
-    placeholder.text(f"Time elapsed: {st.session_state.counter} seconds")
-    time.sleep(1)
-    st.session_state.counter += 1
-
-if not st.session_state.running:
-    placeholder.text(f"Time elapsed: {st.session_state.counter} seconds")
 
 # create an empty list to hold the user input data
 user_data = []
