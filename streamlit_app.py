@@ -86,7 +86,6 @@ for exercise in df_date['Exercise'].unique():
             else:
                 set_val1 = col1.number_input(f'Weight {i}', value=0, key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=0, key=f'{exercise}-set{i}-2')
-        st.write(exercise)
         st.write(previous_values)
         st.write(set_val1)
         st.write(set_val2)
@@ -118,6 +117,7 @@ for exercise in df_date['Exercise'].unique():
         'Set 2': set2,
         'Set 3': set3
     }
+    st.write(user_input)
 
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
