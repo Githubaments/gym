@@ -118,7 +118,6 @@ for exercise in df_date['Exercise'].unique():
         'Set 2': set2,
         'Set 3': set3
     }
-    st.write(user_input)
 
     # add the user input dictionary to the list of user data
     user_data.append(user_input)
