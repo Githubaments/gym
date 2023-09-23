@@ -21,14 +21,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-def countup_timer():
-    import time
-    placeholder = st.empty()
-    i = 0
-    while True:
-        placeholder.text(f"Time elapsed: {i} seconds")
-        time.sleep(1)
-        i += 1
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
@@ -76,8 +68,26 @@ df_date = df_workout[df_workout['Date'] == latest_date]
 
 st.write(df_date)
 
-if st.button("Start Timer"):
-        countup_timer()
+if 'counter' not in st.session_state:
+    st.session_state.counter = 0
+
+placeholder = st.empty()
+start_button = st.button("Start Timer")
+stop_button = st.button("Stop Timer")
+
+if start_button:
+    st.session_state.running = True
+
+if stop_button:
+    st.session_state.running = False
+
+while st.session_state.running:
+    placeholder.text(f"Time elapsed: {st.session_state.counter} seconds")
+    time.sleep(1)
+    st.session_state.counter += 1
+
+if not st.session_state.running:
+    placeholder.text(f"Time elapsed: {st.session_state.counter} seconds")
 
 # create an empty list to hold the user input data
 user_data = []
