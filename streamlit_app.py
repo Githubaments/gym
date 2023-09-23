@@ -133,6 +133,8 @@ for exercise in df_date['Exercise'].unique():
         }
         int(set1)
         int(set2)
+        int(set3)
+
         if int(set1) >= 12 and int(set2) >= 12 and int(set3) >= 12:
             # Set all integers to 6
 
