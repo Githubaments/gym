@@ -322,15 +322,15 @@ for exercise in df_workout['Exercise'].unique():
         # Plot for reps of the 'Plate' exercise
         # Reps Stacked Bar Chart
         st.subheader('Reps Over Time')
-        # Plot for reps of the 'Plate' exercise
-        # Plot for reps of the 'Plate' exercise
+        # Plot for reps using stacked bars
         fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
               title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
-              hover_data=['Date'], height=400)
+              height=400)
 
-        # Specify the exact date format for the x-axis
-        fig_reps.update_xaxes(tickformat="%Y-%m-%d")
+        # Ensure x-axis is treated as a date
+        fig_reps.update_xaxes(type='date')
         st.plotly_chart(fig_reps)
+
 
 
 
