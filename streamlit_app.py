@@ -289,9 +289,12 @@ for exercise in df_workout['Exercise'].unique():
         st.plotly_chart(fig_reps)
     else:
         df_filtered['Weight_Num'], df_filtered['Reps'] = df_filtered['Weight'].str.split(',', 1).str
-        # Use the safe conversion function
-        df_filtered['Weight_Num'] = df_filtered['Weight'].apply(safe_int_conversion)
-        df_filtered['Reps'] = df_filtered['Reps'].astype(int)
+
+        # Use the safe conversion function on the 'Weight_Num' column
+        df_filtered['Weight_Num'] = df_filtered['Weight_Num'].apply(safe_int_conversion)
+
+        df_filtered['Reps'] = df_filtered['Reps'].astype(int)  # Assuming 'Reps' will always be an integer
+
 
         # Plot for reps of the 'Plate' exercise
         fig_reps = px.bar(df_filtered, x='Date', y='Reps', title=f'Reps for {exercise}')
