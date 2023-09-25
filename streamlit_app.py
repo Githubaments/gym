@@ -4,6 +4,18 @@ import pandas as pd
 import plotly.express as px
 from google.oauth2 import service_account
 
+
+
+
+# This function attempts to convert the value to an integer.
+# If it fails, it returns a default value.
+def safe_int_conversion(value, default_value=0):
+    try:
+        return int(value)
+    except ValueError:
+        return default_value
+        
+
 # Add custom CSS styles
 st.markdown(
     """
@@ -277,7 +289,8 @@ for exercise in df_workout['Exercise'].unique():
         st.plotly_chart(fig_reps)
     else:
         df_filtered['Weight_Num'], df_filtered['Reps'] = df_filtered['Weight'].str.split(',', 1).str
-        df_filtered['Weight_Num'] = df_filtered['Weight_Num'].astype(int)
+        # Use the safe conversion function
+        df_filtered['Weight_Num'] = df_filtered['Weight'].apply(safe_int_conversion)
         df_filtered['Reps'] = df_filtered['Reps'].astype(int)
 
         # Plot for reps of the 'Plate' exercise
