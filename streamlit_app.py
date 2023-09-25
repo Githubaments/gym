@@ -274,6 +274,10 @@ workout_selected = st.selectbox("Choose a Workout", options=df['Workout'].unique
 # Filter data based on selected workout
 df_workout = df[df['Workout'] == workout_selected]
 
+# Plot for weights with user choice between line and dot
+weight_plot_type = st.radio(f"Select plot type for {exercise} weights:", ["Line", "Dot"], key=exercise)
+    
+
 for exercise in df_workout['Exercise'].unique():
     st.subheader(exercise)
 
@@ -304,12 +308,14 @@ for exercise in df_workout['Exercise'].unique():
 
 
         # Plot for reps of the 'Plate' exercise
-        fig_reps = px.bar(df_filtered, x='Date', y='Reps', title=f'Reps for {exercise}')
+        # Reps Stacked Bar Chart
+        st.subheader('Reps Over Time')
+        fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
+                  title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
+                  hover_data=['Date'],  # Ensure 'Date' is in the hover data
+                  height=400)
         st.plotly_chart(fig_reps)
 
-    # Plot for weights with user choice between line and dot
-    weight_plot_type = st.radio(f"Select plot type for {exercise} weights:", ["Line", "Dot"], key=exercise)
-    
     if weight_plot_type == "Line":
         fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     else:
