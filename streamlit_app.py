@@ -286,6 +286,7 @@ weight_plot_type = st.radio(f"Select plot type for weights:", ["Line", "Dot"])
 
 for exercise in df_workout['Exercise'].unique():
     st.subheader(exercise)
+    st.write(df_filtered.dtypes)
 
     # Inside the loop, right after filtering the dataframe
     df_filtered = df_workout[df_workout['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
