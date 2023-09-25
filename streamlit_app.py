@@ -209,7 +209,9 @@ if selected_exercise != '':
         'Weight': weight,
         'Set 1': set1,
         'Set 2': set2,
-        'Set 3': set3
+        'Set 3': set3,
+        "PO": df_date[df_date['Exercise'] == exercise]['PO'].iloc[0]
+
     }
     # Convert the dictionary to a DataFrame
     extra_user_input_df = pd.DataFrame([extra_user_input])
