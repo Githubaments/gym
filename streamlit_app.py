@@ -211,7 +211,11 @@ if selected_exercise != '':
         'Set 2': set2,
         'Set 3': set3
     }
-    new_df = pd.concat([new_df, extra_user_input]).reset_index(drop=True)
+    # Convert the dictionary to a DataFrame
+    extra_user_input_df = pd.DataFrame([extra_user_input_dict])
+
+    # Concatenate with new_df
+    new_df = pd.concat([new_df, extra_user_input_df], ignore_index=True)
 
 new_df = st.data_editor(new_df)
 
