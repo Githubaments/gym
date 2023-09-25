@@ -327,8 +327,8 @@ for exercise in df_workout['Exercise'].unique():
               hover_data=['Date'], height=400)
 
          # Explicitly set x-axis to date type
-         fig_reps.update_xaxes(type='date')
-         st.plotly_chart(fig_reps)
+        fig_reps.update_xaxes(type='date')
+        st.plotly_chart(fig_reps)
 
 
     if weight_plot_type == "Line":
