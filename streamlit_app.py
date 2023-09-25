@@ -1,6 +1,7 @@
 import streamlit as st
 import gspread
 import pandas as pd
+import plotly.express as px
 from google.oauth2 import service_account
 
 # Add custom CSS styles
