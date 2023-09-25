@@ -267,10 +267,12 @@ st.title('Workout Progression Visualization')
 
 # Dropdown to select a specific workout
 df = pd.DataFrame(data)
-# Convert 'Date' column to string in 'YYYY-MM-DD' format
+
+# Convert 'Date' column to datetime format
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Now format 'Date' column to string in 'YYYY-MM-DD' format
 df['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
-
-
 
 
 workout_selected = st.selectbox("Choose a Workout", options=df['Workout'].unique())
