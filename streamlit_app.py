@@ -289,23 +289,24 @@ for exercise in df_workout['Exercise'].unique():
 
     # Inside the loop, right after filtering the dataframe
     df_filtered = df_workout[df_workout['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
-    st.write(df_filtered.dtypes)
-    df_filtered['Date'] = df_filtered['Date'].astype(str)
     df_filtered['Date'] = pd.to_datetime(df_filtered['Date'])
-    st.write(df_filtered.dtypes)
+
     
     if exercise != "Plate":
         # Simply copy the weight column for non-Plate exercises
         df_filtered['Weight_Num'] = df_filtered['Weight'].apply(safe_int_conversion)
-        
-        # Plot for reps using stacked bars
-        fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
-                  title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
-                  height=400)
 
-        # Forcefully update x-axis to be treated as date
-        fig_reps.update_xaxes(type='date')
-        st.plotly_chart(fig_reps)
+        # Plot for reps using stacked bars
+        trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 1'], name='Set 1')
+        trace2 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 2'], name='Set 2')
+        trace3 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 3'], name='Set 3')
+
+        layout = go.Layout(title='Reps Over Time for Selected Exercise', barmode='stack',
+                   xaxis_title="Date", yaxis_title="Reps")
+
+         fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
+
+         st.plotly_chart(fig_reps)
 
 
     else:
@@ -322,41 +323,29 @@ for exercise in df_workout['Exercise'].unique():
         df_filtered['Reps'] = df_filtered['Reps'].astype(int)  # Assuming 'Reps' will always be an integer
 
 
-        # Plot for reps of the 'Plate' exercise
-        # Reps Stacked Bar Chart
-        st.subheader('Reps Over Time')
         # Plot for reps using stacked bars
-        fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
-              title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
-              height=400)
+        trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 1'], name='Set 1')
+        trace2 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 2'], name='Set 2')
+        trace3 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 3'], name='Set 3')
 
-        # Ensure x-axis is treated as a date
-        fig_reps.update_xaxes(type='date')
+        layout = go.Layout(title='Reps Over Time for Selected Exercise', barmode='stack',
+                   xaxis_title="Date", yaxis_title="Reps")
+
+        fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
+
         st.plotly_chart(fig_reps)
-        df_filtered
-
-
+        
 
 
     if weight_plot_type == "Line":
         fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     else:
         fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
-    df_filtered
+    
     st.plotly_chart(fig_weights)
 
 
 
 
-# Plot for reps using stacked bars
-trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 1'], name='Set 1')
-trace2 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 2'], name='Set 2')
-trace3 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 3'], name='Set 3')
 
-layout = go.Layout(title='Reps Over Time for Selected Exercise', barmode='stack',
-                   xaxis_title="Date", yaxis_title="Reps")
-
-fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
-
-st.plotly_chart(fig_reps)
 
