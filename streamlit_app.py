@@ -285,7 +285,9 @@ for exercise in df_workout['Exercise'].unique():
         df_filtered['Weight_Num'] = df_filtered['Weight'].apply(safe_int_conversion)
         
         # Plot for reps using stacked bars
-        fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'], title=f'Reps for {exercise}', labels={'value': 'Reps'})
+        fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
+                  title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
+                  height=400)
         st.plotly_chart(fig_reps)
     else:
         # Step 1: Split the string
