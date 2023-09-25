@@ -291,6 +291,7 @@ for exercise in df_workout['Exercise'].unique():
     df_filtered = df_workout[df_workout['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
     st.write(df_filtered.dtypes)
     df_filtered['Date'] = df_filtered['Date'].astype(str)
+    df_filtered['Date'] = pd.to_datetime(df_filtered['Date'])
     st.write(df_filtered.dtypes)
     
     if exercise != "Plate":
