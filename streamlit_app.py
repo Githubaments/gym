@@ -285,9 +285,9 @@ weight_plot_type = st.radio(f"Select plot type for weights:", ["Line", "Dot"])
 for exercise in df_workout['Exercise'].unique():
     st.subheader(exercise)
 
-    # Filter data for current exercise in the loop
-    df_filtered = df_workout[df_workout['Exercise'] == exercise]
-
+    # Inside the loop, right after filtering the dataframe
+    df_filtered = df_workout[df_workout['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
+    
     if exercise != "Plate":
         # Simply copy the weight column for non-Plate exercises
         df_filtered['Weight_Num'] = df_filtered['Weight'].apply(safe_int_conversion)
