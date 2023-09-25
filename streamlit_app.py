@@ -300,9 +300,10 @@ for exercise in df_workout['Exercise'].unique():
               title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
               height=400)
 
-        # Explicitly set x-axis to date type
-        fig_reps.update_xaxes(type='date')
+        # Specify the exact date format for the x-axis
+        fig_reps.update_xaxes(tickformat="%Y-%m-%d")
         st.plotly_chart(fig_reps)
+
 
     else:
         # Step 1: Split the string
@@ -322,13 +323,15 @@ for exercise in df_workout['Exercise'].unique():
         # Reps Stacked Bar Chart
         st.subheader('Reps Over Time')
         # Plot for reps of the 'Plate' exercise
+        # Plot for reps of the 'Plate' exercise
         fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
               title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
               hover_data=['Date'], height=400)
 
-         # Explicitly set x-axis to date type
-        fig_reps.update_xaxes(type='date')
+        # Specify the exact date format for the x-axis
+        fig_reps.update_xaxes(tickformat="%Y-%m-%d")
         st.plotly_chart(fig_reps)
+
 
 
     if weight_plot_type == "Line":
