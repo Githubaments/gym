@@ -300,11 +300,11 @@ for exercise in df_workout['Exercise'].unique():
         
         # Plot for reps using stacked bars
         fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'],
-              title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
-              height=400)
+                  title='Reps Over Time for Selected Exercise', labels={'value': 'Reps'},
+                  height=400)
 
-        # Specify the exact date format for the x-axis
-        fig_reps.update_xaxes(tickformat="%Y-%m-%d")
+        # Forcefully update x-axis to be treated as date
+        fig_reps.update_xaxes(type='date')
         st.plotly_chart(fig_reps)
 
 
