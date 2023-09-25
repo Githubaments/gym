@@ -282,7 +282,7 @@ for exercise in df_workout['Exercise'].unique():
 
     if exercise != "Plate":
         # Simply copy the weight column for non-Plate exercises
-        df_filtered['Weight_Num'] = df_filtered['Weight'].astype(int)
+        df_filtered['Weight_Num'] = df_filtered['Weight'].apply(safe_int_conversion)
         
         # Plot for reps using stacked bars
         fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'], title=f'Reps for {exercise}', labels={'value': 'Reps'})
