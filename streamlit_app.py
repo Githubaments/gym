@@ -269,13 +269,17 @@ st.title('Workout Progression Visualization')
 df = pd.DataFrame(data)
 df['Date'] = pd.to_datetime(df['Date'])
 
+df
+
+
+
 workout_selected = st.selectbox("Choose a Workout", options=df['Workout'].unique())
 
 # Filter data based on selected workout
 df_workout = df[df['Workout'] == workout_selected]
 
 # Plot for weights with user choice between line and dot
-weight_plot_type = st.radio(f"Select plot type for {exercise} weights:", ["Line", "Dot"], key=exercise)
+weight_plot_type = st.radio(f"Select plot type for weights:", ["Line", "Dot"])
     
 
 for exercise in df_workout['Exercise'].unique():
