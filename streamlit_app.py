@@ -3,7 +3,7 @@ import gspread
 import pandas as pd
 import plotly.express as px
 from google.oauth2 import service_account
-
+import plotly.graph_objects as go
 
 
 
@@ -344,4 +344,19 @@ for exercise in df_workout['Exercise'].unique():
         fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     df_filtered
     st.plotly_chart(fig_weights)
+
+
+
+
+# Plot for reps using stacked bars
+trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 1'], name='Set 1')
+trace2 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 2'], name='Set 2')
+trace3 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 3'], name='Set 3')
+
+layout = go.Layout(title='Reps Over Time for Selected Exercise', barmode='stack',
+                   xaxis_title="Date", yaxis_title="Reps")
+
+fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
+
+st.plotly_chart(fig_reps)
 
