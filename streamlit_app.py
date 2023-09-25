@@ -333,6 +333,7 @@ for exercise in df_workout['Exercise'].unique():
         # Ensure x-axis is treated as a date
         fig_reps.update_xaxes(type='date')
         st.plotly_chart(fig_reps)
+        df_filtered
 
 
 
@@ -341,6 +342,6 @@ for exercise in df_workout['Exercise'].unique():
         fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     else:
         fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
-    
+    df_filtered
     st.plotly_chart(fig_weights)
 
