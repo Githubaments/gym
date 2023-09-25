@@ -304,9 +304,9 @@ for exercise in df_workout['Exercise'].unique():
         layout = go.Layout(title='Reps Over Time for Selected Exercise', barmode='stack',
                    xaxis_title="Date", yaxis_title="Reps")
 
-         fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
+        fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
 
-         st.plotly_chart(fig_reps)
+        st.plotly_chart(fig_reps)
 
 
     else:
