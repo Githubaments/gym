@@ -212,7 +212,7 @@ if selected_exercise != '':
         'Set 3': set3
     }
     # Convert the dictionary to a DataFrame
-    extra_user_input_df = pd.DataFrame([extra_user_input_dict])
+    extra_user_input_df = pd.DataFrame([extra_user_input])
 
     # Concatenate with new_df
     new_df = pd.concat([new_df, extra_user_input_df], ignore_index=True)
