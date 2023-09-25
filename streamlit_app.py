@@ -246,3 +246,43 @@ with st.form(key='my_form'):
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
+
+
+
+# Title
+st.title('Workout Progression Visualization')
+
+# Dropdown to select a specific workout
+df = pd.DataFrame(data)
+
+workout_selected = st.selectbox("Choose a Workout", options=df['Workout'].unique())
+
+# Filter data based on selected workout
+df_workout = df[df['Workout'] == workout_selected]
+
+for exercise in df_workout['Exercise'].unique():
+    st.subheader(exercise)
+
+    # Filter data for current exercise in the loop
+    df_filtered = df_workout[df_workout['Exercise'] == exercise]
+
+    # Plot for reps
+    if exercise != "Plate":
+        fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'], title=f'Reps for {exercise}', labels={'value': 'Reps'})
+        st.plotly_chart(fig_reps)
+    else:
+        df_filtered['Weight_Num'], df_filtered['Reps'] = df_filtered['Weight'].str.split(',', 1).str
+        df_filtered['Weight_Num'] = df_filtered['Weight_Num'].astype(int)
+        df_filtered['Reps'] = df_filtered['Reps'].astype(int)
+        fig_reps = px.bar(df_filtered, x='Date', y='Reps', title=f'Reps for {exercise}')
+        st.plotly_chart(fig_reps)
+
+    # Plot for weights
+    weight_plot_type = st.radio(f"Select plot type for {exercise} weights:", ["Line", "Dot"], key=exercise)
+    
+    if weight_plot_type == "Line":
+        fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+    else:
+        fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+    
+    st.plotly_chart(fig_weights)
