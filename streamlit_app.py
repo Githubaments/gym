@@ -267,18 +267,23 @@ for exercise in df_workout['Exercise'].unique():
     # Filter data for current exercise in the loop
     df_filtered = df_workout[df_workout['Exercise'] == exercise]
 
-    # Plot for reps
     if exercise != "Plate":
+        # Simply copy the weight column for non-Plate exercises
+        df_filtered['Weight_Num'] = df_filtered['Weight'].astype(int)
+        
+        # Plot for reps using stacked bars
         fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'], title=f'Reps for {exercise}', labels={'value': 'Reps'})
         st.plotly_chart(fig_reps)
     else:
         df_filtered['Weight_Num'], df_filtered['Reps'] = df_filtered['Weight'].str.split(',', 1).str
         df_filtered['Weight_Num'] = df_filtered['Weight_Num'].astype(int)
         df_filtered['Reps'] = df_filtered['Reps'].astype(int)
+
+        # Plot for reps of the 'Plate' exercise
         fig_reps = px.bar(df_filtered, x='Date', y='Reps', title=f'Reps for {exercise}')
         st.plotly_chart(fig_reps)
 
-    # Plot for weights
+    # Plot for weights with user choice between line and dot
     weight_plot_type = st.radio(f"Select plot type for {exercise} weights:", ["Line", "Dot"], key=exercise)
     
     if weight_plot_type == "Line":
@@ -287,3 +292,4 @@ for exercise in df_workout['Exercise'].unique():
         fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     
     st.plotly_chart(fig_weights)
+
