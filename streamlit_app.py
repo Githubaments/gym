@@ -288,7 +288,12 @@ for exercise in df_workout['Exercise'].unique():
         fig_reps = px.bar(df_filtered, x='Date', y=['Set 1', 'Set 2', 'Set 3'], title=f'Reps for {exercise}', labels={'value': 'Reps'})
         st.plotly_chart(fig_reps)
     else:
-        df_filtered['Weight_Num'], df_filtered['Reps'] = df_filtered['Weight'].str.split(',', 1).str
+        # Step 1: Split the string
+        df_filtered['Split_Weight'] = df_filtered['Weight'].str.split(',')
+        
+        # Step 2: Extract values to new columns
+        df_filtered['Weight_Num'] = df_filtered['Split_Weight'].str[0].apply(safe_int_conversion)
+        df_filtered['Reps'] = df_filtered['Split_Weight'].str[1].apply(safe_int_conversion)
 
         # Use the safe conversion function on the 'Weight_Num' column
         df_filtered['Weight_Num'] = df_filtered['Weight_Num'].apply(safe_int_conversion)
