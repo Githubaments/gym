@@ -255,6 +255,7 @@ st.title('Workout Progression Visualization')
 
 # Dropdown to select a specific workout
 df = pd.DataFrame(data)
+df['Date'] = pd.to_datetime(df['Date'])
 
 workout_selected = st.selectbox("Choose a Workout", options=df['Workout'].unique())
 
