@@ -289,6 +289,7 @@ for exercise in df_workout['Exercise'].unique():
 
     # Inside the loop, right after filtering the dataframe
     df_filtered = df_workout[df_workout['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
+    df_filtered['Date'] = df_filtered['Date'].astype(str)
     
     if exercise != "Plate":
         # Simply copy the weight column for non-Plate exercises
