@@ -326,6 +326,13 @@ for exercise in sorted_exercises:
         weight_cols = ['Weight_Set1', 'Weight_Set2', 'Weight_Set3']
         reps_cols = ['Reps_Set1', 'Reps_Set2', 'Reps_Set3']
         df_filtered
+        # This will give a boolean DataFrame where True indicates problematic cells
+        is_problematic = df_filtered[weight_cols].applymap(lambda x: isinstance(x, str) and not x.isdigit())
+
+        # Filter to get rows with any problematic ce
+        problematic_rows = df_filtered[is_problematic.any(axis=1)]
+
+        st.write(problematic_rows)
         df_filtered[weight_cols] = df_filtered[weight_cols].fillna(0).astype(int)
         df_filtered[weight_cols] = df_filtered[weight_cols].astype(int)
         df_filtered[reps_cols] = df_filtered[reps_cols].astype(int)
