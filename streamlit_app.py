@@ -287,7 +287,7 @@ exercise_counts = df_workout['Exercise'].value_counts()
 # Sort exercises by frequency
 sorted_exercises = exercise_counts.index.tolist()
 
-
+sorted_exercises
 # Plot for weights with user choice between line and dot
 weight_plot_type = st.radio(f"Select plot type for weights:", ["Line", "Dot"])
     
