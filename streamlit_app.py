@@ -339,15 +339,15 @@ for exercise in sorted_exercises:
         # Plot for reps using line chart
         fig_reps = px.line(df_filtered, x='Date', y=reps_cols, title='Reps Over Time for Plate Exercise', height=400)
         st.plotly_chart(fig_reps)
-    df_filtered
-    if df_filtered['Weight_Num'].max() > 0:
-        st.subheader(exercise)
-        if weight_plot_type == "Line":
-           fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
-        else:
-           fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     
-        st.plotly_chart(fig_weights)
+        if df_filtered['Weight_Num'].max() > 0:
+            st.subheader(exercise)
+            if weight_plot_type == "Line":
+               fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+            else:
+             fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+    
+            st.plotly_chart(fig_weights)
 
 
 
