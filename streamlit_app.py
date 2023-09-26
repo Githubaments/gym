@@ -287,7 +287,6 @@ exercise_counts = df_workout['Exercise'].value_counts()
 # Sort exercises by frequency
 sorted_exercises = exercise_counts.index.tolist()
 
-sorted_exercises
 # Plot for weights with user choice between line and dot
 weight_plot_type = st.radio(f"Select plot type for weights:", ["Line", "Dot"])
     
@@ -344,11 +343,12 @@ for exercise in sorted_exercises:
         st.plotly_chart(fig_reps)
         
 
-
-    if weight_plot_type == "Line":
-        fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
-    else:
-        fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+    if df_filtered['Weight_Num'].max() > 0:
+        st.subheader(exercise)
+        if weight_plot_type == "Line":
+           fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+        else:
+           fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     
     st.plotly_chart(fig_weights)
 
