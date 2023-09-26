@@ -325,6 +325,7 @@ for exercise in sorted_exercises:
         # Convert to integers for plotting
         weight_cols = ['Weight_Set1', 'Weight_Set2', 'Weight_Set3']
         reps_cols = ['Reps_Set1', 'Reps_Set2', 'Reps_Set3']
+        df_filtered[
         df_filtered[weight_cols] = df_filtered[weight_cols].fillna(0).astype(int)
         df_filtered[weight_cols] = df_filtered[weight_cols].astype(int)
         df_filtered[reps_cols] = df_filtered[reps_cols].astype(int)
