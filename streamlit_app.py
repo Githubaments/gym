@@ -319,7 +319,7 @@ for exercise in sorted_exercises:
     else:
         # Step 1: Split the string
         df_filtered
-        df_filtered['Split_Weight'] = df_filtered['Weight'].str.split(',')
+        df_filtered['Split_Weight'] = df_filtered['Weight'].str.split('x')
         
         # Step 2: Extract values to new columns
         df_filtered['Weight_Num'] = df_filtered['Split_Weight'].str[0].apply(safe_int_conversion)
