@@ -315,6 +315,15 @@ for exercise in sorted_exercises:
 
         st.plotly_chart(fig_reps)
 
+        fig_reps = px.bar(df_filtered, x='Date', 
+                  y=['Set 1', 'Set 2', 'Set 3'], 
+                  title='Reps Over Time for Selected Exercise', 
+                  labels={'value': 'Reps'},
+                  height=400)
+
+        # Display the chart
+        st.plotly_chart(fig_reps)
+
         if df_filtered['Weight_Num'].max() > 0:
             st.subheader(exercise)
             if weight_plot_type == "Line":
