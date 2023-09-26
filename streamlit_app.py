@@ -350,7 +350,7 @@ for exercise in sorted_exercises:
         else:
            fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
     
-    st.plotly_chart(fig_weights)
+        st.plotly_chart(fig_weights)
 
 
 
