@@ -333,7 +333,7 @@ for exercise in sorted_exercises:
         problematic_rows = df_filtered[is_problematic.any(axis=1)]
 
         st.write(problematic_rows)
-        df_filtered[weight_cols] = df_filtered[weight_cols].fillna(0).astype(int)
+        df_filtered[weight_cols] = df_filtered[weight_cols].fillna(0)
         df_filtered[weight_cols] = df_filtered[weight_cols].astype(int)
         df_filtered[reps_cols] = df_filtered[reps_cols].astype(int)
     
