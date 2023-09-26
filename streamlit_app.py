@@ -318,6 +318,7 @@ for exercise in sorted_exercises:
 
     else:
         # Step 1: Split the string
+        df_filtered
         df_filtered['Split_Weight'] = df_filtered['Weight'].str.split(',')
         
         # Step 2: Extract values to new columns
@@ -328,6 +329,7 @@ for exercise in sorted_exercises:
         df_filtered['Weight_Num'] = df_filtered['Weight_Num'].apply(safe_int_conversion)
 
         df_filtered['Reps'] = df_filtered['Reps'].astype(int)  # Assuming 'Reps' will always be an integer
+        df_filtered
 
 
         # Plot for reps using stacked bars
