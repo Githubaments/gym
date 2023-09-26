@@ -115,9 +115,7 @@ for exercise in df_date['Exercise'].unique():
         for i in range(1, 4):
             if previous_values[exercise][f'set{i}'] != "":
                 set_val = previous_values[exercise][f'set{i}']
-                st.write(f"Set Val {set_val}")
                 set_val = set_val.split('x') if set_val else ['', '']
-                st.write(f"Set Val 2 {set_val}")
                 set_val1 = col1.number_input(f'Weight {i}', value=int(set_val[0]), key=f'{exercise}-set{i}-1')
                 set_val2 = col2.number_input(f'Reps {i}', value=int(set_val[1]), key=f'{exercise}-set{i}-2')
                 previous_values[exercise][f'set{i}'] = f'{set_val1}x{set_val2}'
@@ -321,8 +319,11 @@ for exercise in sorted_exercises:
     else:
         # Step 1: Split the string
         df_filtered
+        df_filtered['Weight']
         df_filtered['Split_Weight'] = df_filtered['Weight'].str.split('x')
-        
+
+        st.write("split")
+        df_filtered['Split_Weight'] 
         # Step 2: Extract values to new columns
         df_filtered['Weight_Num'] = df_filtered['Split_Weight'].str[0].apply(safe_int_conversion)
         df_filtered['Reps'] = df_filtered['Split_Weight'].str[1].apply(safe_int_conversion)
