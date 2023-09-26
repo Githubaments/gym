@@ -325,7 +325,6 @@ for exercise in sorted_exercises:
         # Convert to integers for plotting
         weight_cols = ['Weight_Set1', 'Weight_Set2', 'Weight_Set3']
         reps_cols = ['Reps_Set1', 'Reps_Set2', 'Reps_Set3']
-        df_filtered
         
         df_filtered[["Set 1","Set 2","Set 3"]] = df_filtered[["Set 1","Set 2","Set 3"]].fillna(0)
         
@@ -340,7 +339,7 @@ for exercise in sorted_exercises:
         # Plot for reps using line chart
         fig_reps = px.line(df_filtered, x='Date', y=reps_cols, title='Reps Over Time for Plate Exercise', height=400)
         st.plotly_chart(fig_reps)
-
+    df_filtered
     if df_filtered['Weight_Num'].max() > 0:
         st.subheader(exercise)
         if weight_plot_type == "Line":
