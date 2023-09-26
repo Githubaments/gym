@@ -317,36 +317,28 @@ for exercise in sorted_exercises:
 
 
     else:
-        # Step 1: Split the string
-        df_filtered
-        df_filtered['Weight']
-        df_filtered['Split_Weight'] = df_filtered['Weight'].str.split('x')
+        # Parse weight and reps from 'Set 1', 'Set 2', and 'Set 3'
+        df_filtered[['Weight_Set1', 'Reps_Set1']] = df_filtered['Set 1'].str.split('x', expand=True)
+        df_filtered[['Weight_Set2', 'Reps_Set2']] = df_filtered['Set 2'].str.split('x', expand=True)
+        df_filtered[['Weight_Set3', 'Reps_Set3']] = df_filtered['Set 3'].str.split('x', expand=True)
+    
+        # Convert to integers for plotting
+        weight_cols = ['Weight_Set1', 'Weight_Set2', 'Weight_Set3']
+        reps_cols = ['Reps_Set1', 'Reps_Set2', 'Reps_Set3']
+        df_filtered[weight_cols] = df_filtered[weight_cols].astype(int)
+        df_filtered[reps_cols] = df_filtered[reps_cols].astype(int)
+    
+        # Skip plotting if weights are zero
+        if df_filtered[weight_cols].sum().sum() == 0:
+            continue
+    
+        # Plot for weights using stacked bars
+        fig_weights = px.bar(df_filtered, x='Date', y=weight_cols, title='Weight Over Time for Plate Exercise', height=400)
+        st.plotly_chart(fig_weights)
 
-        st.write("split")
-        df_filtered['Split_Weight'] 
-        # Step 2: Extract values to new columns
-        df_filtered['Weight_Num'] = df_filtered['Split_Weight'].str[0].apply(safe_int_conversion)
-        df_filtered['Reps'] = df_filtered['Split_Weight'].str[1].apply(safe_int_conversion)
-
-        # Use the safe conversion function on the 'Weight_Num' column
-        df_filtered['Weight_Num'] = df_filtered['Weight_Num'].apply(safe_int_conversion)
-
-        df_filtered['Reps'] = df_filtered['Reps'].astype(int)  # Assuming 'Reps' will always be an integer
-        df_filtered
-
-
-        # Plot for reps using stacked bars
-        trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 1'], name='Set 1')
-        trace2 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 2'], name='Set 2')
-        trace3 = go.Bar(x=df_filtered['Date'], y=df_filtered['Set 3'], name='Set 3')
-
-        layout = go.Layout(title='Reps Over Time for Selected Exercise', barmode='stack',
-                   xaxis_title="Date", yaxis_title="Reps")
-
-        fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
-
+        # Plot for reps using line chart
+        fig_reps = px.line(df_filtered, x='Date', y=reps_cols, title='Reps Over Time for Plate Exercise', height=400)
         st.plotly_chart(fig_reps)
-        
 
     if df_filtered['Weight_Num'].max() > 0:
         st.subheader(exercise)
