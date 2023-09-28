@@ -152,9 +152,9 @@ for exercise in df_date['Exercise'].unique():
 
 
         # Increment each integer by one
-        previous_values[exercise]['set1'] += 1
-        previous_values[exercise]['set2'] += 1
-        previous_values[exercise]['set3'] += 1
+        if previous_values[exercise]['set1'] > 0; += 1
+        if previous_values[exercise]['set2'] > 0; += 1
+        if previous_values[exercise]['set3'] > 0; += 1
         
         if progressive_overload == "Yes":
             if set1 >= 12 and set2 >= 12 and set3 >= 12:
