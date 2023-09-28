@@ -200,7 +200,16 @@ new_df['Comments'] = ''
 # Reorder columns
 new_df = new_df[['Date', 'Workout', 'Exercise', 'Weight', 'Set 1', 'Set 2', 'Set 3', 'PO','Comments']]
 
+
 selected_exercise = st.selectbox('Exercise', exercise_list)
+
+# Button to add a custom exercise
+if st.button("Add Custom Exercise"):
+    custom_exercise = st.text_input("Enter your exercise:")
+    
+    if custom_exercise:  # Check if it's not an empty string
+        selected_exercise = custom_exercise
+
 
 if selected_exercise != '':
     latest_row = df.loc[df['Exercise'] == selected_exercise].iloc[-1]
