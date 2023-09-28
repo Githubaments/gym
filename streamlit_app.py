@@ -289,7 +289,7 @@ df['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
 df_workout = df[df['Workout'] == selected_workout]
 
 # Filtering df_workout based on the values in "Exercise" of new_df
-df_workout_filtered = df_workout[df_workout['Exercise'].isin(new_df['Exercise'])]
+df_workout = df_workout[df_workout['Exercise'].isin(new_df['Exercise'])]
 
 
 # Calculate the frequency of each exercise
