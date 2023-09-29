@@ -206,33 +206,34 @@ selected_exercise = st.selectbox('Exercise', exercise_list)
 # Button to add a custom exercise
 if st.button("Add Custom Exercise"):
     custom_exercise = st.text_input("Enter your exercise:")
-    latest_row = df.loc[df['Exercise'] == custom_exercise].iloc[-1]
-    # Create an empty dictionary to store the selected values
-    selected_values = {}
-    # Create number input for weight
-    weight = st.number_input('Weight:', value=0, step=1)
-
-    # Create number inputs for sets
-    set1 = st.number_input('Set 1:', value=0, step=1)
-    set2 = st.number_input('Set 2:', value=0, step=1)
-    set3 = st.number_input('Set 3:', value=0, step=1)
-
-    extra_user_input = {
-        'Date': latest_date,
-        'Workout': selected_workout,
-        'Exercise': selected_exercise,
-        'Weight': weight,
-        'Set 1': set1,
-        'Set 2': set2,
-        'Set 3': set3,
-        "PO": df_date[df_date['Exercise'] == exercise]['PO'].iloc[0]
-
-    }
-    # Convert the dictionary to a DataFrame
-    extra_user_input_df = pd.DataFrame([extra_user_input])
-
-    # Concatenate with new_df
-    new_df = pd.concat([new_df, extra_user_input_df], ignore_index=True)
+    if len(custom_exercise) > 0:
+        latest_row = df.loc[df['Exercise'] == custom_exercise].iloc[-1]
+        # Create an empty dictionary to store the selected values
+        selected_values = {}
+        # Create number input for weight
+        weight = st.number_input('Weight:', value=0, step=1)
+    
+        # Create number inputs for sets
+        set1 = st.number_input('Set 1:', value=0, step=1)
+        set2 = st.number_input('Set 2:', value=0, step=1)
+        set3 = st.number_input('Set 3:', value=0, step=1)
+    
+        extra_user_input = {
+            'Date': latest_date,
+            'Workout': selected_workout,
+            'Exercise': selected_exercise,
+            'Weight': weight,
+            'Set 1': set1,
+            'Set 2': set2,
+            'Set 3': set3,
+            "PO": df_date[df_date['Exercise'] == exercise]['PO'].iloc[0]
+    
+        }
+        # Convert the dictionary to a DataFrame
+        extra_user_input_df = pd.DataFrame([extra_user_input])
+    
+        # Concatenate with new_df
+        new_df = pd.concat([new_df, extra_user_input_df], ignore_index=True)
 
 
 if selected_exercise != '':
