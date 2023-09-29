@@ -264,8 +264,11 @@ if selected_exercise != '':
     extra_user_input_df = pd.DataFrame([extra_user_input])
 
     # Concatenate with new_df
+    extra_user_input_df
+    new_df
     new_df = pd.concat([new_df, extra_user_input_df], ignore_index=True)
-
+    new_df
+    
 new_df = st.data_editor(new_df)
 
 with st.form(key='my_form'):
