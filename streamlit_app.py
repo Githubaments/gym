@@ -84,6 +84,7 @@ with st.expander("Click to expand"):
 latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 
+st.subheader(f"Last Session for {selected_workout}")
 st.write(df_date)
 
 # create an empty list to hold the user input data
