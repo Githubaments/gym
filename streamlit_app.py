@@ -409,20 +409,19 @@ st.title("Gym Activity Tracker")
 
 # Sidebar to filter data (optional)
 st.sidebar.header("Filter Data")
-start_date = st.sidebar.date_input("Start Date", df['Date'].min())
-end_date = st.sidebar.date_input("End Date", df['Date'].max())
+start_date = st.sidebar.date_input("Start Date", min_value=df['Date'].min(), max_value=df['Date'].max())
+end_date = st.sidebar.date_input("End Date", min_value=df['Date'].min(), max_value=df['Date'].max())
 
 # Filter data based on selected date range
 filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
 
 # Create a GitHub contributions-like chart using Plotly Express
-fig = px.scatter(filtered_df, x='Date', y='WorkoutIntensity', color='WorkoutIntensity',
-                 range_color=[0, df['WorkoutIntensity'].max()], color_continuous_scale='greens')
+fig = px.scatter(filtered_df, x='Date', y=[1] * len(filtered_df), color_discrete_sequence=['green'])
 
-fig.update_layout(title="Gym Activity Contributions", xaxis_title="Date", yaxis_title="Intensity Level")
+fig.update_layout(title="Gym Activity Contributions", xaxis_title="Date", yaxis_title="Gym Activity")
+fig.update_xaxes(type='category')  # Set the x-axis as categorical
 st.plotly_chart(fig)
 
 # Data table (optional)
 st.write("Filtered Data")
 st.write(filtered_df)
-
