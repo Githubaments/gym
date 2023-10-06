@@ -421,13 +421,21 @@ start_date = df['Date'].min()
 end_date = df['Date'].max()
 filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
 
-# Create a GitHub contributions-like chart using Plotly Express
-fig = px.scatter(filtered_df, x='Date', y=[1] * len(filtered_df), color_discrete_sequence=['green'])
+# Create a heatmap-like chart using Plotly
+fig = go.Figure(data=go.Heatmap(
+    x=filtered_df['Date'],
+    y=[1] * len(filtered_df),
+    z=filtered_df['WorkoutIntensity'],
+    colorscale='Viridis',
+    colorbar=dict(title='Intensity'),
+))
 
-fig.update_layout(title="Gym Activity Contributions", xaxis_title="Date", yaxis_title="Gym Activity")
-fig.update_xaxes(type='category')  # Set the x-axis as categorical
+fig.update_layout(
+    title="Gym Activity Heatmap",
+    xaxis_title="Date",
+    yaxis_title="",
+    xaxis_nticks=len(filtered_df),  # Set the number of ticks to match the data points
+    showlegend=False,
+)
+
 st.plotly_chart(fig)
-
-# Data table (optional)
-st.write("Filtered Data")
-st.write(filtered_df)
