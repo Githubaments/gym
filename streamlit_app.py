@@ -404,10 +404,16 @@ data = get_data()
 # Create Dataframe
 df = pd.DataFrame(data)
 
+# Create a Streamlit app
+st.title("Gym Activity Tracker")
+
 # Sidebar to filter data (optional)
 st.sidebar.header("Filter Data")
 start_date = st.sidebar.date_input("Start Date", min_value=None)
 end_date = st.sidebar.date_input("End Date", min_value=None)
+
+# Convert 'Date' column to datetime
+df['Date'] = pd.to_datetime(df['Date'])
 
 # Filter data based on selected date range
 filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
