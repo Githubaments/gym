@@ -425,7 +425,7 @@ filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
 fig = go.Figure(data=go.Heatmap(
     x=filtered_df['Date'],
     y=[1] * len(filtered_df),
-    z=filtered_df['GymActivity'],
+    z=filtered_df['GymActivity'],  # Modify this if your gym activity data is under a different column name
     colorscale=[[0, 'white'], [1, 'green']],
     colorbar=dict(title='Activity'),
 ))
