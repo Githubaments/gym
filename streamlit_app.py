@@ -430,6 +430,7 @@ fig = go.Figure(data=go.Heatmap(
     z=[presence],
     colorscale=[[0, 'white'], [1, 'green']],
     colorbar=dict(title='Presence'),
+    showscale=False,  # Hide the legend for presence
 ))
 
 fig.update_layout(
@@ -442,6 +443,4 @@ fig.update_layout(
 
 st.plotly_chart(fig)
 
-# Data table (optional)
-st.write("Filtered Data")
-st.write(filtered_df)
+
