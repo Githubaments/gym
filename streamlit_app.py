@@ -407,8 +407,7 @@ df = pd.DataFrame(data)
 # Create a Streamlit app
 st.title("Gym Activity Tracker")
 
-start_date = df['Date'].min()
-end_date = df['Date'].max()
+
 
 # Convert Dates
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
@@ -418,6 +417,8 @@ df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
 df['Date'] = df['Date'].dt.date
 
 # Filter data based on selected date range
+start_date = df['Date'].min()
+end_date = df['Date'].max()
 filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
 
 # Create a GitHub contributions-like chart using Plotly Express
