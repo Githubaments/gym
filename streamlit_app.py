@@ -407,10 +407,8 @@ df = pd.DataFrame(data)
 # Create a Streamlit app
 st.title("Gym Activity Tracker")
 
-# Sidebar to filter data (optional)
-st.sidebar.header("Filter Data")
-start_date = st.sidebar.date_input("Start Date", min_value=None)
-end_date = st.sidebar.date_input("End Date", min_value=None)
+start_date = df['Date'].min()
+end_date = df['Date'].max()
 
 # Convert Dates
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
