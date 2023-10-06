@@ -412,8 +412,12 @@ st.sidebar.header("Filter Data")
 start_date = st.sidebar.date_input("Start Date", min_value=None)
 end_date = st.sidebar.date_input("End Date", min_value=None)
 
-# Convert 'Date' column to datetime
-df['Date'] = pd.to_datetime(df['Date'])
+# Convert Dates
+df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+
+# change the format of the dates to dd/mm/yy
+df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
+df['Date'] = df['Date'].dt.date
 
 # Filter data based on selected date range
 filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
