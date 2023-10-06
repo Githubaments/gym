@@ -399,7 +399,30 @@ for exercise in sorted_exercises:
         
 
 
+data = get_data()
 
+# Create Dataframe
+df = pd.DataFrame(data)
 
+# Create a Streamlit app
+st.title("Gym Activity Tracker")
 
+# Sidebar to filter data (optional)
+st.sidebar.header("Filter Data")
+start_date = st.sidebar.date_input("Start Date", df['Date'].min())
+end_date = st.sidebar.date_input("End Date", df['Date'].max())
+
+# Filter data based on selected date range
+filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
+
+# Create a GitHub contributions-like chart using Plotly Express
+fig = px.scatter(filtered_df, x='Date', y='WorkoutIntensity', color='WorkoutIntensity',
+                 range_color=[0, df['WorkoutIntensity'].max()], color_continuous_scale='greens')
+
+fig.update_layout(title="Gym Activity Contributions", xaxis_title="Date", yaxis_title="Intensity Level")
+st.plotly_chart(fig)
+
+# Data table (optional)
+st.write("Filtered Data")
+st.write(filtered_df)
 
