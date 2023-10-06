@@ -425,9 +425,9 @@ filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
 fig = go.Figure(data=go.Heatmap(
     x=filtered_df['Date'],
     y=[1] * len(filtered_df),
-    z=filtered_df['WorkoutIntensity'],
-    colorscale='Viridis',
-    colorbar=dict(title='Intensity'),
+    z=filtered_df['GymActivity'],
+    colorscale=[[0, 'white'], [1, 'green']],
+    colorbar=dict(title='Activity'),
 ))
 
 fig.update_layout(
@@ -439,3 +439,7 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
+
+# Data table (optional)
+st.write("Filtered Data")
+st.write(filtered_df)
