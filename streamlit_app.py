@@ -50,9 +50,9 @@ def get_data():
     # Read the data from the sheet
     data = sheet.get_all_records()
     
-    return data
+    return data, sheet
 
-data = get_data()
+data, sheet = get_data()
 
 # Extract the workout names
 workouts = list(set([d['Workout'] for d in data]))
@@ -399,7 +399,7 @@ for exercise in sorted_exercises:
         
 
 
-data = get_data()
+data, sheet = get_data()
 
 # Create Dataframe
 df = pd.DataFrame(data)
