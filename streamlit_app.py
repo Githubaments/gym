@@ -34,25 +34,27 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-@st.cache_data
-def get_data():
-        # Create a connection object.
-    credentials = service_account.Credentials.from_service_account_info(
+# Create a connection object.
+credentials = service_account.Credentials.from_service_account_info(
         st.secrets["gcp_service_account"],
         scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive", ],
     )
     
-    gc = gspread.authorize(credentials)
+gc = gspread.authorize(credentials)
     
-    # Open the Google Sheet by name
-    sheet = gc.open('Gym Log').sheet1
+# Open the Google Sheet by name
+sheet = gc.open('Gym Log').sheet1
+
+@st.cache_data
+def get_data(sheet):
+
     
     # Read the data from the sheet
     data = sheet.get_all_records()
     
-    return data, sheet, gc
+    return data
 
-data, sheet, gc = get_data()
+data = get_data(sheet)
 
 # Extract the workout names
 workouts = list(set([d['Workout'] for d in data]))
@@ -399,7 +401,7 @@ for exercise in sorted_exercises:
         
 
 
-data, sheet = get_data()
+data = get_data()
 
 # Create Dataframe
 df = pd.DataFrame(data)
