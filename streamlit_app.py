@@ -46,7 +46,13 @@ gc = gspread.authorize(credentials)
 sheet = gc.open('Gym Log').sheet1
 
 @st.cache_data
-def get_data(sheet):
+def get_data():
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive", ],
+    )
+    
+    gc = gspread.authorize(credentials)
 
     
     # Read the data from the sheet
@@ -54,7 +60,7 @@ def get_data(sheet):
     
     return data
 
-data = get_data(sheet)
+data = get_data()
 
 # Extract the workout names
 workouts = list(set([d['Workout'] for d in data]))
