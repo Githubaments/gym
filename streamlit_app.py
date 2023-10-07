@@ -50,9 +50,9 @@ def get_data():
     # Read the data from the sheet
     data = sheet.get_all_records()
     
-    return data, sheet
+    return data, sheet, gc
 
-data, sheet = get_data()
+data, sheet, gc = get_data()
 
 # Extract the workout names
 workouts = list(set([d['Workout'] for d in data]))
