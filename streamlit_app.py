@@ -348,7 +348,7 @@ for exercise in sorted_exercises:
     st.subheader(exercise)
 
     # Inside the loop, right after filtering the dataframe
-    df_filtered = df_workout[df_workout['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
+    df_filtered = df[df['Exercise'] == exercise].copy(deep=True)  # Add .copy(deep=True)
     df_filtered['Date'] = pd.to_datetime(df_filtered['Date'])
 
     
