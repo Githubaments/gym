@@ -408,20 +408,27 @@ for exercise in sorted_exercises:
         # Convert to integers for plotting
         weight_cols = ['Weight_Set1', 'Weight_Set2', 'Weight_Set3']
         reps_cols = ['Reps_Set1', 'Reps_Set2', 'Reps_Set3']
-        
-        df_filtered[["Set 1","Set 2","Set 3"]] = df_filtered[["Set 1","Set 2","Set 3"]].fillna(0)
-        
+    
+        df_filtered[["Set 1", "Set 2", "Set 3"]] = df_filtered[["Set 1", "Set 2", "Set 3"]].fillna(0)
+    
         # Skip plotting if weights are zero
         if df_filtered[weight_cols].sum().sum() == 0:
-            continue
+            pass  # Do nothing and continue
     
-        # Plot for weights using stacked bars
-        fig_weights = px.bar(df_filtered, x='Date', y=weight_cols, title='Weight Over Time for Plate Exercise', height=400)
-        st.plotly_chart(fig_weights)
-
-        # Plot for reps using line chart
-        fig_reps = px.bar(df_filtered, x='Date', y=reps_cols, title='Reps Over Time for Plate Exercise', height=400)
+        # Plot for reps using stacked bars (consistent with non-Plate exercises)
+        trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Reps_Set1'], name='Set 1')
+        trace2 = go.Bar(x=df_filtered['Date'], y=df_filtered['Reps_Set2'], name='Set 2')
+        trace3 = go.Bar(x=df_filtered['Date'], y=df_filtered['Reps_Set3'], name='Set 3')
+    
+        layout = go.Layout(title='Reps Over Time for Plate Exercise', barmode='stack',
+                           xaxis_title="Date", yaxis_title="Reps")
+    
+        fig_reps = go.Figure(data=[trace1, trace2, trace3], layout=layout)
         st.plotly_chart(fig_reps)
+    
+        # Plot for weights using line chart (consistent with non-Plate exercises)
+        fig_weights = px.line(df_filtered, x='Date', y=weight_cols, title=f'Weight for {exercise}', labels={'Weight_Set1': 'Weight Set 1', 'Weight_Set2': 'Weight Set 2', 'Weight_Set3': 'Weight Set 3'})
+        st.plotly_chart(fig_weights)
     
         
 
