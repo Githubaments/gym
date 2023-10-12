@@ -96,7 +96,7 @@ with st.expander("Click to expand"):
 latest_date = df_workout['Date'].max()
 
 # Format the datetime object as "DDD MMM" (e.g., "Tue Oct")
-formatted_date = datetime.strptime(date_str, "%Y-%m-%d").strftime("%a %b")
+formatted_date = datetime.strptime(latest_date, "%Y-%m-%d").strftime("%a %b")
 
 df_date = df_workout[df_workout['Date'] == latest_date]
 
