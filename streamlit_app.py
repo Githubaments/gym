@@ -97,7 +97,7 @@ latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 
 st.subheader(f'"Last Session for workout: "{selected_workout}" {latest_date}')
-df_display = df.drop(columns=['Date', 'Workout'])
+df_display = df_date.drop(columns=['Date', 'Workout'])
 st.dataframe(df_display, use_container_width=True)
 
 
