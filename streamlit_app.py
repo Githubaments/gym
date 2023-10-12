@@ -95,8 +95,16 @@ with st.expander("Click to expand"):
 
 latest_date = df_workout['Date'].max()
 
-# Format the datetime object as "DDD MMM" (e.g., "Tue Oct")
-formatted_date = latest_date.strftime("%a %d%S %b")
+# Function to add the appropriate suffix to the day of the month
+def add_suffix(day):
+    if 10 <= day % 100 <= 20:
+        suffix = "th"
+    else:
+        suffix = {1: "st", 2: "nd", 3: "rd"}.get(day % 10, "th")
+    return f"{day}{suffix}"
+
+# Format the date as "Wed 11th Oct" format
+formatted_date = latest_date.strftime("%a ") + add_suffix(latest_date.day) + latest_date.strftime(" %b")
 
 df_date = df_workout[df_workout['Date'] == latest_date]
 
