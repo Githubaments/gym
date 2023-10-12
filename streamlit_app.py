@@ -78,8 +78,12 @@ df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%y')
 df['Date'] = df['Date'].dt.date
 
-# Allow the user to choose a workout to filter by
-selected_workout = st.radio('Select a workout', df['Workout'].unique().tolist())
+# Determine the last recorded workout and its alternate
+last_workout = df.iloc[0]['Workout']
+default_workout = 'B' if last_workout == 'A' else 'A'
+
+# Create the Streamlit radio button with the default value
+selected_workout = st.radio('Select a workout', df['Workout'].unique().tolist(), index=df['Workout'].unique().tolist().index(default_workout))
 
 # Filter the data by the selected workout
 df_workout = df[df['Workout'] == selected_workout]
@@ -92,7 +96,7 @@ with st.expander("Click to expand"):
 latest_date = df_workout['Date'].max()
 df_date = df_workout[df_workout['Date'] == latest_date]
 
-st.subheader(f'"Last Session for workout: "{selected_workout}".')
+st.subheader(f'"Last Session for workout: "{selected_workout}"')
 st.table(df_date)
 
 # create an empty list to hold the user input data
