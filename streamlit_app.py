@@ -94,6 +94,7 @@ with st.expander("Click to expand"):
     st.write(reversed_df)
 
 latest_date = df_workout['Date'].max()
+latest_date 
 df_date = df_workout[df_workout['Date'] == latest_date]
 
 st.subheader(f'"Last Session for workout: "{selected_workout}"')
