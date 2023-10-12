@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 from google.oauth2 import service_account
 import plotly.graph_objects as go
-
+from datetime import datetime
 
 
 # This function attempts to convert the value to an integer.
@@ -94,9 +94,16 @@ with st.expander("Click to expand"):
     st.write(reversed_df)
 
 latest_date = df_workout['Date'].max()
+
+# Convert the date string to a datetime object
+date_obj = datetime.strptime(latest_date, "%Y-%m-%d")
+
+# Format the datetime object as "DDD MMM" (e.g., "Tue Oct")
+formatted_date = date_obj.strftime("%a %b")
+
 df_date = df_workout[df_workout['Date'] == latest_date]
 
-st.subheader(f'"Last Session for workout: "{selected_workout}" {latest_date}')
+st.subheader(f'"Last Session on {formatted_date} for workout: "{selected_workout}"')
 df_display = df_date.set_index('Exercise').drop(columns=['Date', 'Workout'])
 st.dataframe(df_display, use_container_width=True)
 
