@@ -94,11 +94,13 @@ with st.expander("Click to expand"):
     st.write(reversed_df)
 
 latest_date = df_workout['Date'].max()
-latest_date 
 df_date = df_workout[df_workout['Date'] == latest_date]
 
-st.subheader(f'"Last Session for workout: "{selected_workout}"')
-st.table(df_date)
+st.subheader(f'"Last Session for workout: "{selected_workout}" {latest_date}')
+df_display = df.drop(columns=['Date', 'Workout'])
+st.dataframe(df_display, use_container_width=True)
+
+
 
 # create an empty list to hold the user input data
 user_data = []
