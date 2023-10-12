@@ -410,7 +410,7 @@ else:
 
     # Skip plotting if weights are zero
     if df_filtered[["Weight_Set1", "Weight_Set2", "Weight_Set3"]].sum().sum() == 0:
-        continue
+        pass
 
     # Create separate traces for each set
     trace1 = go.Bar(x=df_filtered['Date'], y=df_filtered['Weight_Set1'], name='Set 1', text=df_filtered['Reps_Set1'], textposition='outside')
