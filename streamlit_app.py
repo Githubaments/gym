@@ -95,6 +95,7 @@ with st.expander("Click to expand"):
 
 latest_date = df_workout['Date'].max()
 
+latest_date
 # Convert the date string to a datetime object
 date_obj = datetime.strptime(latest_date, "%Y-%m-%d")
 
