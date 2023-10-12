@@ -420,7 +420,7 @@ for exercise in sorted_exercises:
         st.plotly_chart(fig_weights)
 
         # Plot for reps using line chart
-        fig_reps = px.line(df_filtered, x='Date', y=reps_cols, title='Reps Over Time for Plate Exercise', height=400)
+        fig_reps = px.bar(df_filtered, x='Date', y=reps_cols, title='Reps Over Time for Plate Exercise', height=400)
         st.plotly_chart(fig_reps)
     
         
