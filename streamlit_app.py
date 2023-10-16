@@ -326,6 +326,7 @@ with st.form(key='my_form'):
                 sheet.update(start_cell, new_df.values.tolist())
 
                 st.write(f"New data written to sheet: {update_details}")
+                st.cache_resource.clear()
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
