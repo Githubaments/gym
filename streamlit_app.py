@@ -420,7 +420,6 @@ for exercise in sorted_exercises:
     
                 # Calculate target goal
                 target_goal = exercise_goal * body_weight if is_kg else exercise_goal * body_weight * 2.2
-                target_goal
     
                 # Add goal line
                 fig_weights.add_trace(go.Scatter(x=df_filtered['Date'], y=[target_goal]*len(df_filtered), mode='lines', name='Goal Weight'))
