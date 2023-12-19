@@ -457,24 +457,4 @@ start_date = df['Date'].min()
 end_date = df['Date'].max()
 filtered_df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
 
-# Create a heatmap-like chart using Plotly
-presence = [1] * len(filtered_df)
 
-fig = go.Figure(data=go.Heatmap(
-    x=filtered_df['Date'],
-    y=[1] * len(filtered_df),
-    z=[presence],
-    colorscale=[[0, 'white'], [1, 'green']],
-    colorbar=dict(title='Presence'),
-    showscale=False,  # Hide the legend for presence
-))
-
-fig.update_layout(
-    title="Gym Activity Heatmap",
-    xaxis_title="Date",
-    yaxis_title="",
-    xaxis_nticks=len(filtered_df),  # Set the number of ticks to match the data points
-    showlegend=False,
-)
-
-st.plotly_chart(fig)
