@@ -60,6 +60,21 @@ def get_data():
     
     return data
 
+
+# Goal Data
+body_weight = 65
+data = {
+    'Exercise': ['DB Neg', 'DB Seat', 'Shoulder Machine', 'Pull-Down Row', 'DB Squat', 
+                 'Pull-Down Lat', 'Seated Row', 'Leg Press', 'Leg Extension', 'Leg Curl'],
+    'Goal': [1, 0.5, 0.75, 1, 1, 1, 1, 3, 1, 0.75],
+    'KG': ['Y', 'Y', 'Y', 'N', 'Y', 'N', 'Y', 'N', 'N', 'N']
+}
+
+df_goals = pd.DataFrame(data)
+df_goals
+
+
+
 data = get_data()
 
 # Extract the workout names
@@ -397,6 +412,17 @@ for exercise in sorted_exercises:
                fig_weights = px.line(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
             else:
              fig_weights = px.scatter(df_filtered, x='Date', y='Weight_Num', title=f'Weight for {exercise}', labels={'Weight_Num': 'Weight'})
+
+            # Check if the exercise is in the goals DataFrame
+            if exercise in df_goals['Exercise'].values:
+                exercise_goal = df_goals[df_goals['Exercise'] == exercise]['Goal'].iloc[0]
+                is_kg = df_goals[df_goals['Exercise'] == exercise]['KG'].iloc[0] == 'Y'
+    
+                # Calculate target goal
+                target_goal = exercise_goal * body_weight if not is_kg else exercise_goal * body_weight / 2.2
+    
+                # Add goal line
+                fig_weights.add_trace(go.Scatter(x=df_filtered['Date'], y=[target_goal]*len(df_filtered), mode='lines', name='Goal Weight'))
     
             st.plotly_chart(fig_weights)
 
