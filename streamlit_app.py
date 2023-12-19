@@ -66,12 +66,12 @@ body_weight = 65
 data = {
     'Exercise': ['DB Neg', 'DB Seat', 'Shoulder Machine', 'Pull-Down Row', 'DB Squat', 
                  'Pull-Down Lat', 'Seated Row', 'Leg Press', 'Leg Extension', 'Leg Curl'],
-    'Goal': [1, 0.5, 0.75, 1, 1, 1, 1, 3, 1, 0.75],
+    'Goal': [0.5, 0.25, 0.75, 1, 1, 1, 1, 3, 1, 0.75],
     'KG': ['Y', 'Y', 'Y', 'N', 'Y', 'N', 'Y', 'N', 'N', 'N']
 }
 
 df_goals = pd.DataFrame(data)
-df_goals
+
 
 
 
