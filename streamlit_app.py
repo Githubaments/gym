@@ -419,7 +419,7 @@ for exercise in sorted_exercises:
                 is_kg = df_goals[df_goals['Exercise'] == exercise]['KG'].iloc[0] == 'Y'
     
                 # Calculate target goal
-                target_goal = exercise_goal * body_weight if is_kg else exercise_goal * body_weight / 2.2
+                target_goal = exercise_goal * body_weight if is_kg else exercise_goal * body_weight * 2.2
                 target_goal
     
                 # Add goal line
